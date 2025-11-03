@@ -85,7 +85,6 @@ const links = computed(() => {
             <ClientOnly>
               <GoogleAd
                 ad-slot="7663977887"
-                ad-format="auto"
                 :fullWidth="true"
                 ins-style="display:block"
                 :refreshKey="page?.updatedAt || page?.path"
@@ -107,7 +106,6 @@ const links = computed(() => {
             <ClientOnly>
               <GoogleAd
                 ad-slot="7663977887"
-                ad-format="auto"
                 :fullWidth="true"
                 ins-style="display:block"
                 :refreshKey="page?.updatedAt || page?.path"
@@ -159,7 +157,6 @@ const links = computed(() => {
             <ClientOnly>
               <GoogleAd
                 ad-slot="7663977887"
-                ad-format="auto"
                 :fullWidth="true"
                 ins-style="display:block"
                 :refreshKey="page?.updatedAt || page?.path"
