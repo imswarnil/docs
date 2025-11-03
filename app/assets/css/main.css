@@ -1,15 +1,13 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
+/* Display font for hero & big headings */
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&display=swap");
 
 /* Let Nuxt Content pick up prose tokens */
 @source "../../../content/**/*";
 
 /* =========================================================
-   SLDS-inspired Theme for Nuxt UI
-   - Brand (Primary): Salesforce Blue
-   - Neutrals: cool gray slate
-   - Success/Warning/Error: SLDS tokens
-   - Compact radius (4px), subtle borders/shadows
+   SLDS-inspired Theme (Salesforce Blue, compact radii)
    ========================================================= */
 @theme static {
   /* Layout & Typography */
@@ -23,7 +21,7 @@
   --color-blue-200: #B9DCFF;
   --color-blue-300: #8CC3FF;
   --color-blue-400: #59A8FF;
-  --color-blue-500: #1B96FF; /* light brand */
+  --color-blue-500: #1B96FF;
   --color-blue-600: #0176D3; /* core brand */
   --color-blue-700: #0B5CAB; /* brand dark */
   --color-blue-800: #084C8A;
@@ -43,39 +41,37 @@
   --color-slate-900: #2B3852;
   --color-slate-950: #1F2A44;
 
-  /* ---------- Success (SLDS) ---------- */
+  /* ---------- Success / Warning / Error (SLDS) ---------- */
   --color-green-50:  #E6F4EA;
   --color-green-100: #CDEAD6;
   --color-green-200: #A4DDB7;
   --color-green-300: #76C98F;
   --color-green-400: #3FAD68;
-  --color-green-500: #2E844A; /* SLDS success */
+  --color-green-500: #2E844A; /* success */
   --color-green-600: #226B39;
   --color-green-700: #1B5A31;
   --color-green-800: #154A29;
   --color-green-900: #0F3C22;
   --color-green-950: #0A2E1B;
 
-  /* ---------- Warning (SLDS) ---------- */
   --color-yellow-50:  #FFF4E5;
   --color-yellow-100: #FFE6C7;
   --color-yellow-200: #FFD29A;
   --color-yellow-300: #FFB864;
   --color-yellow-400: #FF9736;
-  --color-yellow-500: #DD7A01; /* SLDS warning (orange) */
+  --color-yellow-500: #DD7A01; /* warning */
   --color-yellow-600: #B56203;
   --color-yellow-700: #8F4E03;
   --color-yellow-800: #6F3D02;
   --color-yellow-900: #522F02;
   --color-yellow-950: #3B2201;
 
-  /* ---------- Error (SLDS) ---------- */
   --color-red-50:  #FDECEE;
   --color-red-100: #F9D2D6;
   --color-red-200: #F3A9B0;
   --color-red-300: #EA7C88;
   --color-red-400: #D65766;
-  --color-red-500: #BA0517; /* SLDS error */
+  --color-red-500: #BA0517; /* error */
   --color-red-600: #93040F;
   --color-red-700: #74030C;
   --color-red-800: #5A0209;
@@ -89,35 +85,39 @@
 }
 
 /* =========================================================
-   Nuxt UI Base Mapping / Tweaks
-   Nuxt UI auto-maps --color-* to --ui-color-*, but we’ll also
-   tune radius, borders, and surface colors to feel like SLDS.
+   Nuxt UI Base Mapping / Global Tokens
    ========================================================= */
 @layer base {
   :root, .light {
-    /* Primary = SLDS brand blue */
     --ui-primary: var(--color-blue-600);
+    --ui-success: var(--color-green-500);
+    --ui-warning: var(--color-yellow-500);
+    --ui-error:   var(--color-red-500);
 
-    /* Radius: SLDS = compact corners (~4px) */
+    /* Radii (SLDS compact) */
     --ui-radius: .25rem;
     --ui-radius-sm: .25rem;
     --ui-radius-md: .25rem;
     --ui-radius-lg: .375rem;
 
-    /* Subtle borders on cards/inputs (light mode) */
+    /* Surfaces, borders, shadows */
     --ui-border: color-mix(in oklab, var(--color-slate-300) 70%, transparent);
     --ui-bg: #ffffff;
     --ui-elevated: #ffffff;
     --ui-bg-accented: color-mix(in oklab, var(--color-blue-50) 30%, #fff);
     --ui-ring: color-mix(in oklab, var(--color-blue-600) 40%, transparent);
     --ui-shadow: 0 1px 2px rgba(3, 45, 96, 0.06), 0 3px 8px rgba(3,45,96,.05);
+
+    /* Typography */
+    --font-heading: "Outfit", var(--font-sans);
   }
 
   .dark {
-    /* Primary slightly lighter in dark for contrast */
     --ui-primary: var(--color-blue-500);
+    --ui-success: color-mix(in oklab, var(--color-green-500) 85%, white);
+    --ui-warning: color-mix(in oklab, var(--color-yellow-500) 85%, white);
+    --ui-error:   color-mix(in oklab, var(--color-red-500) 85%, white);
 
-    /* Neutral surfaces in dark */
     --ui-border: color-mix(in oklab, var(--color-slate-800) 85%, transparent);
     --ui-bg: var(--color-slate-950);
     --ui-elevated: var(--color-slate-900);
@@ -126,12 +126,263 @@
     --ui-shadow: 0 1px 2px rgba(0,0,0,.5), 0 6px 16px rgba(0,0,0,.35);
   }
 
-  /* Make buttons/inputs feel a bit more SLDS (compact + bordered) */
-  button, .btn, [role="button"] {
-    border-radius: var(--ui-radius);
-  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-sans); }
+
+  /* Buttons/inputs feel SLDS (compact + bordered) */
+  button, .btn, [role="button"] { border-radius: var(--ui-radius); }
   input, textarea, select, .card, .prose :where(table) {
     border-radius: var(--ui-radius);
     border: 1px solid var(--ui-border);
   }
+
+  /* Headings use Display font subtly */
+  .prose :where(h1,h2){ font-family: var(--font-heading); letter-spacing:-0.02em; }
+  .prose :where(h3){ font-family: var(--font-heading); letter-spacing:-0.01em; }
 }
+
+/* =========================================================
+   CRM Analytics Hero (two orbs) + Einstein vibe
+   ========================================================= */
+:root {
+  --crma-hero-sky: var(--color-blue-100);
+  --crma-hero-title: var(--color-blue-950);
+}
+.dark {
+  --crma-hero-sky: var(--color-slate-950);
+  --crma-hero-title: #fff;
+}
+
+.crma-hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--crma-hero-sky);
+  /* optional faint dotted pattern */
+  background-image:
+    radial-gradient(circle at 16px 16px, color-mix(in oklab, var(--color-blue-50) 55%, transparent) 1.5px, transparent 1.5px);
+  background-size: 32px 32px;
+}
+
+.crma-title {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: .95;
+  color: var(--crma-hero-title);
+  font-size: clamp(2.25rem, 5vw + 1rem, 4.5rem);
+}
+
+.crma-kicker {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: color-mix(in oklab, var(--color-blue-700) 85%, white);
+}
+.dark .crma-kicker { color: color-mix(in oklab, var(--color-blue-300) 85%, white); }
+
+/* Decorative orbs (bottom-left) */
+.crma-circle {
+  position: absolute;
+  border-radius: 9999px;
+  filter: drop-shadow(0 12px 28px rgba(3,45,96,.15));
+  pointer-events: none;
+}
+.crma-circle--lg {
+  width: 30rem; height: 30rem;
+  left: -10rem; bottom: -12rem;
+  background:
+    radial-gradient(circle at 30% 30%, var(--color-blue-600), var(--color-blue-700) 60%, var(--color-blue-800));
+}
+.crma-circle--sm {
+  width: 16rem; height: 16rem;
+  left: 9rem; bottom: -4rem;
+  background:
+    radial-gradient(circle at 35% 35%, var(--color-blue-400), var(--color-blue-600) 55%, var(--color-blue-700));
+  mix-blend-multiply;
+  opacity: .95;
+}
+.dark .crma-circle--lg {
+  background: radial-gradient(circle at 30% 30%, var(--color-blue-700), var(--color-blue-800) 60%, var(--color-blue-900));
+}
+.dark .crma-circle--sm {
+  background: radial-gradient(circle at 35% 35%, var(--color-blue-500), var(--color-blue-700) 55%, var(--color-blue-900));
+}
+
+/* =========================================================
+   SLDS-ish “island” cards: sidebars, ads, navigation
+   ========================================================= */
+.island, .ad-card, .toc-card, .nav-card {
+  background: var(--ui-elevated);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius);
+  box-shadow: var(--ui-shadow);
+}
+.ad-card { padding: 1rem; }
+.toc-card { padding: 1rem; }
+.nav-card { padding: .75rem; }
+
+/* Ads <ins> normalization (works with your <GoogleAd/>) */
+.ad-card ins.adsbygoogle {
+  display: block !important;
+  width: 100% !important;
+}
+
+/* =========================================================
+   Nuxt UI component nips & tucks
+   ========================================================= */
+/* Page header headline (Docs) */
+.u-page-header h1, .UPageHeader h1 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+}
+
+/* Table of contents block (right sidebar) */
+.UContentToc, .u-content-toc {
+  position: sticky;
+  top: calc(64px + 1rem);
+}
+.UContentToc nav a, .u-content-toc nav a {
+  border-left: 2px solid transparent;
+  padding-left: .5rem;
+}
+.UContentToc nav a[aria-current="true"],
+.u-content-toc nav a[aria-current="true"] {
+  color: var(--ui-primary);
+  border-left-color: var(--ui-primary);
+}
+
+/* Buttons a tad more SLDS – clearer focus */
+button, .UButton, .u-button {
+  box-shadow: none;
+}
+button:focus-visible, .UButton:focus-visible, .u-button:focus-visible {
+  outline: 2px solid var(--ui-ring);
+  outline-offset: 2px;
+}
+
+/* Inputs */
+input, textarea, select {
+  background: var(--ui-bg);
+}
+input:focus-visible, textarea:focus-visible, select:focus-visible {
+  outline: 2px solid var(--ui-ring);
+  outline-offset: 2px;
+}
+
+/* =========================================================
+   Prose (Content) – headings, links, code, tables
+   ========================================================= */
+.prose {
+  --tw-prose-bullets: color-mix(in oklab, var(--ui-primary) 65%, #999);
+}
+.prose :where(h1){ font-size: clamp(2rem, 2.6rem + 1vw, 3rem); margin-block: .2em .6em; }
+.prose :where(h2){ font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); margin-block: 1.4em .7em; }
+.prose :where(h3){ font-size: 1.25rem; margin-block: 1.2em .5em; }
+.prose :where(p){ line-height: 1.7; }
+.prose :where(a){
+  color: var(--ui-primary);
+  border-bottom: 1px dashed color-mix(in oklab, var(--ui-primary) 45%, transparent);
+  text-decoration: none;
+}
+.prose :where(a:hover){
+  border-bottom-style: solid;
+}
+
+/* Code blocks */
+.prose :where(pre){
+  border: 1px solid var(--ui-border);
+  background: color-mix(in oklab, var(--ui-bg) 90%, var(--color-slate-50));
+  box-shadow: var(--ui-shadow);
+  border-radius: var(--ui-radius);
+}
+.dark .prose :where(pre){
+  background: color-mix(in oklab, var(--ui-elevated) 92%, var(--color-slate-900));
+}
+
+/* Inline code */
+.prose :where(code):not(pre code){
+  border: 1px solid color-mix(in oklab, var(--ui-border) 80%, transparent);
+  background: color-mix(in oklab, var(--ui-bg) 92%, var(--color-slate-50));
+  padding: .125rem .375rem;
+  border-radius: calc(var(--ui-radius) - 1px);
+  font-size: .925em;
+}
+
+/* Tables */
+.prose :where(table){
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+}
+.prose :where(th, td){
+  border-bottom: 1px solid var(--ui-border);
+}
+.prose :where(th){
+  background: color-mix(in oklab, var(--ui-bg-accented) 75%, var(--ui-bg));
+  font-weight: 700;
+}
+
+/* Blockquote */
+.prose :where(blockquote){
+  border-left: 4px solid var(--ui-bg-accented);
+  background: color-mix(in oklab, var(--ui-bg-accented) 25%, transparent);
+  padding: .75rem 1rem;
+  border-radius: var(--ui-radius);
+}
+
+/* HR */
+.prose :where(hr){
+  border-top: 1px dashed var(--ui-border);
+  opacity: .8;
+}
+
+/* =========================================================
+   Utility patterns (optional): grid, dots, subtle gradient
+   ========================================================= */
+.bg-grid-soft {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--ui-border) 65%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--ui-border) 65%, transparent) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.bg-dots-soft {
+  background-image:
+    radial-gradient(circle at 1px 1px, color-mix(in oklab, var(--ui-border) 80%, transparent) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+.bg-slds-glow {
+  background:
+    radial-gradient(1000px 60% at 0% 100%, color-mix(in oklab, var(--color-blue-100) 55%, transparent), transparent 60%),
+    linear-gradient(to bottom right, transparent 40%, color-mix(in oklab, var(--color-blue-50) 40%, transparent));
+}
+
+/* =========================================================
+   Scrollbar (nice but subtle)
+   ========================================================= */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--ui-border) 80%, transparent) transparent;
+}
+*::-webkit-scrollbar { height: 10px; width: 10px; }
+*::-webkit-scrollbar-thumb {
+  background: color-mix(in oklab, var(--ui-border) 90%, transparent);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+/* =========================================================
+   Ads & helper classes used in your content layout
+   ========================================================= */
+.sidebar-ad, .content-ad {
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 1px solid var(--ui-border);
+  background: var(--ui-elevated);
+  border-radius: var(--ui-radius);
+  box-shadow: var(--ui-shadow);
+}
+
+/* If you wrap your GoogleAd with <div class="ad-card">…</div> */
+.ad-card { /* already declared above */ }
