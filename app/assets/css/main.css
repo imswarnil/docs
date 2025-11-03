@@ -135,3 +135,74 @@
     border: 1px solid var(--ui-border);
   }
 }
+
+
+/* === CRM Analytics Hero Styling === */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@600;800;900&display=swap');
+
+:root {
+  --font-heading: "Outfit", var(--font-sans);
+  --crma-hero-sky: var(--color-blue-100);
+  --crma-hero-title: var(--color-blue-950);
+}
+
+/* Section container */
+.crma-hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--crma-hero-sky);
+}
+
+/* Big, bold heading like the screenshot */
+.crma-title {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: .95;
+  color: var(--crma-hero-title);
+  font-size: clamp(2.25rem, 5vw + 1rem, 4.5rem);
+}
+
+/* Subtitle */
+.crma-kicker {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: color-mix(in oklab, var(--color-blue-700) 85%, white);
+}
+
+/* Bottom-left layered circles */
+.crma-circle {
+  position: absolute;
+  border-radius: 9999px;
+  filter: drop-shadow(0 12px 28px rgba(3,45,96,.15));
+  pointer-events: none;
+}
+
+.crma-circle--lg {
+  width: 30rem; height: 30rem;
+  left: -10rem; bottom: -12rem;
+  background:
+    radial-gradient(circle at 30% 30%, var(--color-blue-600), var(--color-blue-700) 60%, var(--color-blue-800));
+}
+
+.crma-circle--sm {
+  width: 16rem; height: 16rem;
+  left: 9rem; bottom: -4rem;
+  background:
+    radial-gradient(circle at 35% 35%, var(--color-blue-400), var(--color-blue-600) 55%, var(--color-blue-700));
+  mix-blend-multiply;
+  opacity: .95;
+}
+
+/* Dark mode tune-up */
+.dark .crma-hero { background: var(--color-slate-950); }
+.dark .crma-title { color: white; }
+.dark .crma-kicker { color: color-mix(in oklab, var(--color-blue-300) 85%, white); }
+.dark .crma-circle--lg {
+  background: radial-gradient(circle at 30% 30%, var(--color-blue-700), var(--color-blue-800) 60%, var(--color-blue-900));
+}
+.dark .crma-circle--sm {
+  background: radial-gradient(circle at 35% 35%, var(--color-blue-500), var(--color-blue-700) 55%, var(--color-blue-900));
+}

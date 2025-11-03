@@ -18,6 +18,7 @@ useSeoMeta({
 })
 </script>
 
+<CrmaHero />
 <template>
   <ContentRenderer
     v-if="page"
