@@ -6,10 +6,7 @@
 
 /* =========================================================
    SLDS-inspired Theme for Nuxt UI
-   - Brand (Primary): Salesforce Blue
-   - Neutrals: cool gray slate
-   - Success/Warning/Error: SLDS tokens
-   - Compact radius (4px), subtle borders/shadows
+   (kept, expanded)
    ========================================================= */
 @theme static {
   /* Layout & Typography */
@@ -89,9 +86,7 @@
 }
 
 /* =========================================================
-   Nuxt UI Base Mapping / Tweaks
-   Nuxt UI auto-maps --color-* to --ui-color-*, but we’ll also
-   tune radius, borders, and surface colors to feel like SLDS.
+   Nuxt UI Base Mapping / Tweaks (SLDS feel)
    ========================================================= */
 @layer base {
   :root, .light {
@@ -126,31 +121,49 @@
     --ui-shadow: 0 1px 2px rgba(0,0,0,.5), 0 6px 16px rgba(0,0,0,.35);
   }
 
-  /* Make buttons/inputs feel a bit more SLDS (compact + bordered) */
-  button, .btn, [role="button"] {
-    border-radius: var(--ui-radius);
+  /* Global headings = bold Salesforce/Tableau vibe */
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@600;800;900&display=swap');
+  :root { --font-heading: "Outfit", var(--font-sans); }
+
+  h1, h2, .prose :where(h1,h2), .u-page-header h1 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.015em;
+    font-weight: 800;
   }
+
+  /* Links */
+  a { color: var(--color-blue-700); }
+  a:hover { color: var(--color-blue-900); text-decoration: underline; }
+
+  /* Controls */
+  button, .btn, [role="button"] { border-radius: var(--ui-radius); }
   input, textarea, select, .card, .prose :where(table) {
     border-radius: var(--ui-radius);
     border: 1px solid var(--ui-border);
+    box-shadow: var(--ui-shadow);
+    background: var(--ui-elevated);
+  }
+
+  /* Code blocks feel like SLDS cards */
+  pre, code:not([class*="language-"]) {
+    border: 1px solid var(--ui-border);
+    border-radius: var(--ui-radius);
+    background: color-mix(in oklab, var(--color-slate-50) 55%, white);
+  }
+  .dark pre, .dark code:not([class*="language-"]) {
+    background: color-mix(in oklab, var(--color-slate-900) 70%, black);
   }
 }
 
-
-/* === CRM Analytics Hero Styling === */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@600;800;900&display=swap');
-
-:root {
-  --font-heading: "Outfit", var(--font-sans);
-  --crma-hero-sky: var(--color-blue-100);
-  --crma-hero-title: var(--color-blue-950);
-}
+/* =========================================================
+   HERO: pastel sky + two layered circles (screenshot twin)
+   ========================================================= */
 
 /* Section container */
 .crma-hero {
   position: relative;
   overflow: hidden;
-  background: var(--crma-hero-sky);
+  background: var(--color-blue-100);
 }
 
 /* Big, bold heading like the screenshot */
@@ -160,7 +173,7 @@
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: .95;
-  color: var(--crma-hero-title);
+  color: var(--color-blue-950);
   font-size: clamp(2.25rem, 5vw + 1rem, 4.5rem);
 }
 
@@ -198,7 +211,7 @@
 
 /* Dark mode tune-up */
 .dark .crma-hero { background: var(--color-slate-950); }
-.dark .crma-title { color: white; }
+.dark .crma-title { color: #fff; }
 .dark .crma-kicker { color: color-mix(in oklab, var(--color-blue-300) 85%, white); }
 .dark .crma-circle--lg {
   background: radial-gradient(circle at 30% 30%, var(--color-blue-700), var(--color-blue-800) 60%, var(--color-blue-900));
@@ -206,3 +219,120 @@
 .dark .crma-circle--sm {
   background: radial-gradient(circle at 35% 35%, var(--color-blue-500), var(--color-blue-700) 55%, var(--color-blue-900));
 }
+
+/* =========================================================
+   DOCS HEADER: mini hero skin (works with or without custom component)
+   ========================================================= */
+
+/* If your docs header wrapper has any of these classes, it will get the hero treatment. */
+.u-page-header,
+.crma-docs-hero,
+[data-component="UPageHeader"] {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-blue-100);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius-lg);
+}
+
+/* Decorative circles as pseudo elements (so you don't need extra markup) */
+.u-page-header::before,
+.crma-docs-hero::before,
+[data-component="UPageHeader"]::before {
+  content: "";
+  position: absolute; left: -10rem; bottom: -12rem;
+  width: 30rem; height: 30rem; border-radius: 9999px;
+  filter: drop-shadow(0 12px 28px rgba(3,45,96,.15));
+  background: radial-gradient(circle at 30% 30%, var(--color-blue-600), var(--color-blue-700) 60%, var(--color-blue-800));
+  pointer-events: none;
+}
+.u-page-header::after,
+.crma-docs-hero::after,
+[data-component="UPageHeader"]::after {
+  content: "";
+  position: absolute; left: 9rem; bottom: -4rem;
+  width: 16rem; height: 16rem; border-radius: 9999px;
+  filter: drop-shadow(0 12px 28px rgba(3,45,96,.15));
+  background: radial-gradient(circle at 35% 35%, var(--color-blue-400), var(--color-blue-600) 55%, var(--color-blue-700));
+  mix-blend-multiply; opacity: .95; pointer-events: none;
+}
+
+/* Title inside docs header */
+.u-page-header h1, .crma-docs-hero h1, [data-component="UPageHeader"] h1 {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: var(--color-blue-950);
+}
+.dark .u-page-header,
+.dark .crma-docs-hero,
+.dark [data-component="UPageHeader"] { background: var(--color-slate-950); }
+.dark .u-page-header h1,
+.dark .crma-docs-hero h1,
+.dark [data-component="UPageHeader"] h1 { color: #fff; }
+
+/* =========================================================
+   PANELS: TOC, left nav, ads boxes (SLDS panels)
+   ========================================================= */
+.u-content-toc, .u-page-aside, .toc-panel, .sf-panel {
+  background: color-mix(in oklab, white 92%, var(--color-blue-50));
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius);
+  box-shadow: var(--ui-shadow);
+}
+.dark .u-content-toc, .dark .u-page-aside, .dark .toc-panel, .dark .sf-panel {
+  background: color-mix(in oklab, var(--color-slate-900) 80%, black);
+}
+
+/* Titles inside panels */
+.u-content-toc h2, .sf-panel h2 { font-family: var(--font-heading); font-weight: 800; }
+
+/* Ad container consistency */
+.sf-ad {
+  margin-top: .75rem;
+  padding: 1rem;
+  background: color-mix(in oklab, white 96%, var(--color-blue-50));
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius);
+}
+
+/* =========================================================
+   TABLES / BADGES
+   ========================================================= */
+.prose table {
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+}
+.prose table thead th {
+  background: color-mix(in oklab, var(--color-blue-50) 70%, white);
+  color: var(--color-blue-900);
+}
+.prose table th, .prose table td {
+  padding: .75rem .875rem;
+  border-bottom: 1px solid var(--ui-border);
+}
+.badge, .u-badge {
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius);
+  background: color-mix(in oklab, var(--color-blue-50) 60%, white);
+}
+
+/* =========================================================
+   SEARCH input look
+   ========================================================= */
+input[type="search"], .u-input-search {
+  background: #fff;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius);
+  box-shadow: var(--ui-shadow);
+}
+.dark input[type="search"], .dark .u-input-search {
+  background: var(--color-slate-900);
+}
+
+/* =========================================================
+   Footer subtle top border
+   ========================================================= */
+footer { border-top: 1px solid var(--ui-border); }
