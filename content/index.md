@@ -40,7 +40,7 @@ Build professional documentation with Nuxt UI's powerful components, enhanced ty
   :::
 
 #default
-![Small Image](/assets/templates/nuxt/dashboard-dark.png){width="300"}  
+<iframe src="https://www.youtube-nocookie.com/embed/_eQxomah-nA?si=pDSzchUBDKb2NQu7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="aspect-ratio: 16/9; width: 100%;"></iframe>
 ::
 
 <div class="hidden lg:block mt-8 p-4 border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 rounded-lg">
