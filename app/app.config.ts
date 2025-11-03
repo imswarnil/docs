@@ -1,7 +1,7 @@
 export default defineAppConfig({
   ui: {
     colors: {
-      primary: 'blue',
+      primary: 'green',
       neutral: 'slate'
     },
     footer: {
@@ -12,7 +12,7 @@ export default defineAppConfig({
     }
   },
   seo: {
-    siteName: 'CRM Analytics Training'
+    siteName: 'Nuxt Docs Template'
   },
   header: {
     title: '',
