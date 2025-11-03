@@ -18,7 +18,7 @@ useSeoMeta({
 })
 </script>
 
-<CrmaHero />
+
 <template>
   <ContentRenderer
     v-if="page"
@@ -26,3 +26,4 @@ useSeoMeta({
     :prose="false"
   />
 </template>
+<CrmaHero />
