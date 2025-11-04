@@ -1,50 +1,59 @@
 <template>
-    <div class="ytc-wrap">
+    <div class="ytc-wrap" @keydown.space.prevent="togglePlay" tabindex="0">
       <!-- IFRAME MOUNT -->
       <div class="ytc-frame" ref="mountEl" />
   
-      <!-- COMPLETED OVERLAY -->
+      <!-- COMPLETED OVERLAY (full bleed, brand color) -->
       <div v-if="completed" class="ytc-complete">
-        <div class="ytc-complete-card">
-          <span class="ytc-complete-dot" />
-          <p>Video completed</p>
-          <button class="ytc-btn" @click="jumpToStart(); play()">Replay</button>
+        <div class="ytc-complete-inner">
+          <UIcon name="i-lucide-badge-check" class="ytc-complete-icon" />
+          <h3 class="ytc-complete-title">Video completed</h3>
+          <p class="ytc-complete-sub">Nice! You’ve finished this clip.</p>
+          <div class="ytc-complete-actions">
+            <button class="ytc-btn ytc-btn--light" @click="jumpToStart(); play()">
+              <UIcon name="i-lucide-rotate-ccw" class="mr-1" /> Replay
+            </button>
+          </div>
         </div>
       </div>
   
-      <!-- POSTER (until ready / play) -->
+      <!-- POSTER (until ready / click) -->
       <button
         v-if="!ready"
         class="ytc-poster"
         :style="posterStyle"
         @click="initAndPlay"
+        aria-label="Play video"
       >
-        <span class="ytc-bigplay" />
+        <span class="ytc-bigplay">
+          <UIcon name="i-lucide-play" class="ytc-bigplay-icon" />
+        </span>
       </button>
   
       <!-- CUSTOM CONTROLS -->
-      <div v-if="controls" class="ytc-controls" :class="{ 'ytc-disabled': !ready }">
+      <div v-if="controls" class="ytc-controls" :class="{ 'ytc-disabled': !ready }" @click.stop>
         <button class="ytc-btn" @click="togglePlay" :disabled="!ready" :aria-label="playing ? 'Pause' : 'Play'">
-          <span v-if="!playing">▶</span>
-          <span v-else>⏸</span>
+          <UIcon :name="playing ? 'i-lucide-pause' : 'i-lucide-play'" />
         </button>
   
-        <button class="ytc-btn" @click="jumpToStart" :disabled="!ready" aria-label="Jump to start">⟲</button>
-        <button class="ytc-btn" @click="jumpToEnd" :disabled="!ready" aria-label="Jump to end">⟶</button>
+        <button class="ytc-btn" @click="jumpToStart" :disabled="!ready" aria-label="Jump to start">
+          <UIcon name="i-lucide-skip-back" />
+        </button>
+        <button class="ytc-btn" @click="jumpToEnd" :disabled="!ready" aria-label="Jump to end">
+          <UIcon name="i-lucide-skip-forward" />
+        </button>
   
         <!-- PROGRESS -->
-        <div class="ytc-progress" @click="scrub($event)">
+        <div class="ytc-progress" @click="scrub($event)" role="slider" :aria-valuemin="startSec" :aria-valuemax="endBound" :aria-valuenow="current">
           <div class="ytc-progress-fill" :style="{ width: progressPct + '%' }" />
         </div>
   
         <!-- TIME -->
-        <div class="ytc-time">{{ mmss(current) }} / {{ mmss(endBound) }}</div>
+        <div class="ytc-time" aria-live="off">{{ mmss(current) }} / {{ mmss(endBound) }}</div>
   
         <!-- VOLUME -->
         <button class="ytc-btn" @click="toggleMute" :disabled="!ready" :aria-label="mutedRef ? 'Unmute' : 'Mute'">
-          <span v-if="mutedRef || volumeRef === 0">🔇</span>
-          <span v-else-if="volumeRef < 50">🔉</span>
-          <span v-else>🔊</span>
+          <UIcon :name="volIcon" />
         </button>
         <input
           class="ytc-volume"
@@ -109,17 +118,20 @@
     const span = Math.max(0.0001, clipLen.value)
     return clamp(((current.value - startSec.value) / span) * 100, 0, 100)
   })
-  
   const posterStyle = computed(() => ({
     backgroundImage: props.poster ? `url('${props.poster}')` : 'none'
   }))
+  const volIcon = computed(() => {
+    if (mutedRef.value || volumeRef.value === 0) return 'i-lucide-volume-x'
+    if (volumeRef.value < 50) return 'i-lucide-volume-1'
+    return 'i-lucide-volume-2'
+  })
   
   function num(v: MaybeNum): number | undefined {
     if (v === '' || v === null || v === undefined) return undefined
     const n = typeof v === 'string' ? Number(v) : v
     return Number.isFinite(n) ? n : undefined
   }
-  
   function clamp(n:number, min:number, max:number){ return Math.min(Math.max(n, min), max) }
   
   function loadApi(): Promise<void> {
@@ -129,9 +141,7 @@
       if (w.YT && w.YT.Player) return resolve()
       const existing = document.getElementById('youtube-iframe-api')
       if (existing) {
-        w.onYouTubeIframeAPIReady
-          ? resolve()
-          : (w.onYouTubeIframeAPIReady = () => resolve())
+        w.onYouTubeIframeAPIReady ? resolve() : (w.onYouTubeIframeAPIReady = () => resolve())
         return
       }
       const tag = document.createElement('script')
@@ -145,13 +155,11 @@
   function createPlayer() {
     const w = window as any
     if (!mountEl.value || !w.YT || !w.YT.Player) return
-  
     player.value = new w.YT.Player(mountEl.value, {
       width: '100%',
       height: '100%',
       videoId: props.videoId,
       playerVars: {
-        // Hide YT UI as much as allowed by TOS
         controls: 0,
         modestbranding: 1,
         rel: 0,
@@ -159,7 +167,6 @@
         iv_load_policy: 3,
         disablekb: 1,
         playsinline: 1,
-        // NOTE: start/end passed again on load to be safe
         origin: location.origin
       },
       events: {
@@ -169,22 +176,14 @@
           applyVolume()
           if (mutedRef.value) e.target.mute()
           else e.target.unMute()
-  
-          // Ensure initial bounds
           e.target.seekTo?.(startSec.value, true)
           current.value = startSec.value
-  
           ready.value = true
           completed.value = false
-  
-          // Autoplay if requested
           if (props.autoplay) play()
-  
-          // Start ticking
           tick()
         },
         onStateChange: (evt: any) => {
-          // 1 = playing, 2 = paused, 0 = ended
           if (evt.data === 1) playing.value = true
           if (evt.data === 2) playing.value = false
           if (evt.data === 0) handleEnd()
@@ -193,26 +192,10 @@
     })
   }
   
-  function initAndPlay() {
-    loadApi().then(() => {
-      if (!player.value) createPlayer()
-      else play()
-    })
-  }
-  
-  function play() {
-    completed.value = false
-    player.value?.playVideo?.()
-  }
-  
-  function pause() {
-    player.value?.pauseVideo?.()
-  }
-  
-  function togglePlay() {
-    if (!ready.value) return
-    playing.value ? pause() : play()
-  }
+  function initAndPlay() { loadApi().then(() => { if (!player.value) createPlayer(); else play() }) }
+  function play() { completed.value = false; player.value?.playVideo?.() }
+  function pause() { player.value?.pauseVideo?.() }
+  function togglePlay() { if (!ready.value) return; playing.value ? pause() : play() }
   
   function seekTo(sec: number, andPlay = true) {
     const low = startSec.value
@@ -233,10 +216,7 @@
     seekTo(target, true)
   }
   
-  function jumpToStart() {
-    seekTo(startSec.value, false)
-  }
-  
+  function jumpToStart() { seekTo(startSec.value, false) }
   function jumpToEnd() {
     const endV = endSec.value ?? duration.value ?? startSec.value
     seekTo(endV, false)
@@ -245,44 +225,27 @@
   
   function handleEnd() {
     playing.value = false
-    if (props.loop) {
-      jumpToStart()
-      play()
-    } else {
-      completed.value = true
-    }
+    if (props.loop) { jumpToStart(); play() }
+    else { completed.value = true }
   }
   
   function applyVolume() {
     const v = clamp(volumeRef.value, 0, 100)
     player.value?.setVolume?.(v)
-    if (v === 0) {
-      player.value?.mute?.()
-      mutedRef.value = true
-    } else if (!mutedRef.value) {
-      player.value?.unMute?.()
-    }
+    if (v === 0) { player.value?.mute?.(); mutedRef.value = true }
+    else if (!mutedRef.value) { player.value?.unMute?.() }
   }
-  
   function toggleMute() {
     if (!ready.value) return
-    if (mutedRef.value) {
-      mutedRef.value = false
-      player.value?.unMute?.()
-      if (volumeRef.value === 0) { volumeRef.value = 20; applyVolume() }
-    } else {
-      mutedRef.value = true
-      player.value?.mute?.()
-    }
+    if (mutedRef.value) { mutedRef.value = false; player.value?.unMute?.(); if (volumeRef.value === 0) { volumeRef.value = 20; applyVolume() } }
+    else { mutedRef.value = true; player.value?.mute?.() }
   }
   
   function tick() {
-    // rAF loop to clamp within [start,end] and update progress
     if (!player.value) return
     const cur = Math.floor(player.value.getCurrentTime?.() || startSec.value)
     const endV = endSec.value ?? duration.value ?? startSec.value
     if (cur >= endV - 0.05) {
-      // Reached end bound
       player.value.pauseVideo?.()
       current.value = endV
       handleEnd()
@@ -307,21 +270,10 @@
     startSec.value = clamp(n, 0, endSec.value ?? duration.value ?? n)
     if (ready.value) seekTo(startSec.value, false)
   })
-  watch(() => props.end, (v) => {
-    const n = num(v)
-    endSec.value = n
-  })
+  watch(() => props.end, (v) => { endSec.value = num(v) })
   
-  onMounted(() => {
-    // Lazy create when user clicks; or preload:
-    // loadApi().then(createPlayer)
-    // We wait for click to avoid autoplay restrictions.
-  })
-  
-  onBeforeUnmount(() => {
-    if (rafId) cancelAnimationFrame(rafId)
-    try { player.value?.destroy?.() } catch {}
-  })
+  onMounted(() => { /* lazy init on click to satisfy autoplay policies */ })
+  onBeforeUnmount(() => { if (rafId) cancelAnimationFrame(rafId); try { player.value?.destroy?.() } catch {} })
   </script>
   
   <style scoped>
@@ -334,8 +286,6 @@
     background: oklch(0.98 0 0 / .9);
     box-shadow: var(--ui-shadow, 0 2px 12px rgba(3,45,96,.1));
   }
-  
-  /* Iframe mount */
   .ytc-frame { width: 100%; height: 100%; }
   
   /* Poster */
@@ -346,18 +296,12 @@
     border: none; cursor: pointer;
   }
   .ytc-bigplay{
-    width: 68px; height: 68px; border-radius: 9999px;
-    background: rgba(3,45,96,.85);
+    width: 72px; height: 72px; border-radius: 9999px;
+    background: rgba(3,45,96,.9);
     box-shadow: 0 10px 30px rgba(3,45,96,.35), inset 0 0 0 2px rgba(255,255,255,.35);
-    position: relative;
+    display: grid; place-items: center;
   }
-  .ytc-bigplay::after{
-    content:'';
-    position:absolute; left:26px; top:19px;
-    border-left: 18px solid white;
-    border-top: 12px solid transparent;
-    border-bottom: 12px solid transparent;
-  }
+  .ytc-bigplay-icon { width: 28px; height: 28px; color: white; transform: translateX(2px); }
   
   /* Controls */
   .ytc-controls{
@@ -368,12 +312,12 @@
     color:#fff;
   }
   .ytc-disabled{ opacity:.6; filter: grayscale(.15); pointer-events: none; }
-  
   .ytc-btn{
     appearance:none; border:1px solid rgba(255,255,255,.25);
     background: rgba(255,255,255,.08);
     color:#fff; border-radius:8px; padding:.35rem .55rem; font-weight:600;
     line-height:1; transition:.15s ease;
+    display:inline-flex; align-items:center; justify-content:center; gap:.25rem;
   }
   .ytc-btn:hover{ background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.35); }
   
@@ -387,26 +331,29 @@
   }
   
   .ytc-time{ font-variant-numeric: tabular-nums; opacity:.95; font-weight:600; }
-  
   .ytc-volume{ width:110px; accent-color:#0176D3; }
   
-  /* Completed overlay */
+  /* Completed overlay: full cover with brand color */
   .ytc-complete{
     position:absolute; inset:0; display:grid; place-items:center;
-    background: linear-gradient(to bottom right, rgba(3,45,96,.35), rgba(3,45,96,.15));
-    backdrop-filter: blur(2px);
+    background:
+      radial-gradient(1200px 600px at -10% 110%, color-mix(in oklab, var(--ui-primary) 85%, black 10%), transparent 60%),
+      radial-gradient(800px 500px at 20% 100%, color-mix(in oklab, var(--ui-primary) 70%, black 15%), transparent 55%),
+      color-mix(in oklab, var(--ui-primary) 92%, black 8%);
   }
-  .ytc-complete-card{
-    background: rgba(255,255,255,.9);
-    color: #032D60;
-    padding: 1rem 1.25rem; border-radius: 12px;
-    border: 1px solid rgba(3,45,96,.15);
-    text-align:center; display:flex; flex-direction:column; gap:.5rem; align-items:center;
-    box-shadow: 0 10px 30px rgba(3,45,96,.15);
+  .ytc-complete-inner{
+    text-align:center; color: white; max-width: 90%;
+    display:flex; flex-direction:column; gap:.5rem; align-items:center;
   }
-  .ytc-complete-dot{
-    width:10px; height:10px; border-radius:9999px; background:#2E844A;
-    box-shadow: 0 0 0 5px rgba(46,132,74,.15);
+  .ytc-complete-icon{ width: 56px; height: 56px; color: white; opacity:.95; }
+  .ytc-complete-title{ font-weight: 800; letter-spacing: .2px; font-size: clamp(1.25rem, 1.2vw + 1rem, 2rem); margin-top:.25rem; }
+  .ytc-complete-sub{ opacity:.9; }
+  .ytc-complete-actions{ margin-top:.5rem; }
+  .ytc-btn--light{
+    background: rgba(255,255,255,.15);
+    border-color: rgba(255,255,255,.35);
+    color: white;
   }
+  .ytc-btn--light:hover{ background: rgba(255,255,255,.25); }
   </style>
   
