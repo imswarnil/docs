@@ -98,6 +98,9 @@ const links = computed(() => {
               type="dashed"
             />
 
+            <GoogleAd variant="fixed" width="250px" height="250px" />
+
+
           <USeparator
               v-if="page.body?.toc?.links?.length"
               type="dashed"
