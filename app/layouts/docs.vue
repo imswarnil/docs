@@ -13,6 +13,9 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
             highlight
             :navigation="navigation"
           />
+          <ClientOnly>
+  <GoogleAd variant="square-fixed" />
+</ClientOnly>
         </UPageAside>
       </template>
       <slot />
