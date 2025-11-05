@@ -86,9 +86,6 @@ const links = computed(() => {
     
     <!-- Right Sidebar TOC + Ads -->
     <template v-if="page?.body?.toc?.links?.length" #right>
-      <ClientOnly>
-  <GoogleAd variant="square" />
-</ClientOnly>
       <UContentToc
         :title="toc?.title"
         :links="page.body?.toc?.links"
@@ -115,8 +112,8 @@ const links = computed(() => {
           </div>
 
           <ClientOnly>
-  <GoogleAd variant="square" />
-</ClientOnly>
+              <GoogleAd variant="square" />
+        </ClientOnly>
          
         </template>
       </UContentToc>

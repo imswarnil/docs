@@ -1,30 +1,20 @@
 <script setup lang="ts">
-import { onMounted, ref, watch, nextTick, computed } from 'vue'
+import { onMounted, nextTick, watch, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 defineOptions({ name: 'GoogleAd' })
 
-/**
- * Variants supported (with your defaults):
- * - horizontal (resp)  -> slot 8939839370
- * - vertical   (resp)  -> slot 3487917390
- * - square     (resp)  -> slot 7663977887
- * - multiplex  (auto-relaxed) -> slot 6808134701
- * - in-article (fluid) -> slot 6501428979
- * - in-feed    (fluid, layout-key) -> slot 9130894804
- * - fixed      (explicit width/height; defaults to 728x90 if none)
- *
- * You can override any default with adSlot / width / height / etc.
- */
-
 type Variant =
-  | 'horizontal'
-  | 'vertical'
-  | 'square'
-  | 'multiplex'
-  | 'in-article'
-  | 'in-feed'
-  | 'fixed'
+  | 'horizontal'      // responsive (auto)
+  | 'vertical'        // responsive (auto)
+  | 'square'          // responsive (auto)
+  | 'leaderboard'     // responsive (auto)
+  | 'skyscraper'      // responsive (auto)
+  | 'multiplex'       // autorelaxed
+  | 'multiplex-fixed' // fixed 900x250 (your code)
+  | 'in-article'      // fluid + layout in-article
+  | 'in-feed'         // fluid + layout-key
+  | 'fixed'           // fixed WxH
 
 const props = withDefaults(defineProps<{
   variant?: Variant
@@ -33,147 +23,129 @@ const props = withDefaults(defineProps<{
   adLayout?: string
   adLayoutKey?: string
   adTest?: 'on' | 'off'
-  width?: string      // only for fixed (e.g. "300px")
-  height?: string     // only for fixed (e.g. "600px")
+  width?: string
+  height?: string
   refreshKey?: string | number
-  dataClass?: string  // optional extra class on wrapper
+  dataClass?: string
 }>(), {
   variant: 'horizontal',
-  adClient: 'ca-pub-1291242080282540',
-  adTest: undefined,
-  width: undefined,
-  height: undefined,
-  dataClass: ''
+  adClient: 'ca-pub-1291242080282540'
 })
 
 const route = useRoute()
 const mountRef = ref<HTMLDivElement | null>(null)
 
-/** Ensure AdSense script exists and is ready */
-function ensureAdsScript(): Promise<void> {
+/** Load AdSense script (non-async per your ask) and resolve when ready-ish */
+function ensureScript(): Promise<void> {
   return new Promise<void>((resolve) => {
-    // Already present?
     // @ts-ignore
     if (window.adsbygoogle && Array.isArray(window.adsbygoogle)) return resolve()
 
-    // Check existing <script> tag
-    const id = 'adsbygoogle-js'
-    let tag = document.getElementById(id) as HTMLScriptElement | null
-    if (!tag) {
-      tag = document.createElement('script')
-      tag.id = id
-      tag.async = true
-      tag.crossOrigin = 'anonymous'
-      tag.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${props.adClient}`
-      document.head.appendChild(tag)
+    let s = document.getElementById('adsbygoogle-js') as HTMLScriptElement | null
+    if (!s) {
+      s = document.createElement('script')
+      s.id = 'adsbygoogle-js'
+      s.async = false            // you asked to avoid async
+      s.crossOrigin = 'anonymous'
+      s.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${props.adClient}`
+      document.head.appendChild(s)
+      s.addEventListener('load', () => resolve())
+      s.addEventListener('error', () => resolve())
+    } else {
+      return resolve()
     }
-
-    // Wait until the queue is ready
-    const start = Date.now()
-    const wait = () => {
-      // @ts-ignore
-      if (window.adsbygoogle && Array.isArray(window.adsbygoogle)) return resolve()
-      if (Date.now() - start > 8000) return resolve() // soft-timeout; let push() try anyway
-      requestAnimationFrame(wait)
-    }
-    wait()
   })
 }
 
-/** Default mapping from variant -> attributes */
-const resolved = computed(() => {
-  const base: Record<string, string> = {
-    'data-ad-client': props.adClient!,
-  }
+function attrsForVariant() {
+  const a: Record<string, string> = { 'data-ad-client': props.adClient! }
 
-  // Defaults from your provided codes
   switch (props.variant) {
-    case 'horizontal': {
-      base['data-ad-slot'] = props.adSlot || '8939839370'
-      base['data-ad-format'] = 'auto'
-      base['data-full-width-responsive'] = 'true'
+    case 'horizontal':
+    case 'leaderboard':
+      a['data-ad-slot'] = props.adSlot || '8939839370'
+      a['data-ad-format'] = 'auto'
+      a['data-full-width-responsive'] = 'true'
       break
-    }
-    case 'vertical': {
-      base['data-ad-slot'] = props.adSlot || '3487917390'
-      base['data-ad-format'] = 'auto'
-      base['data-full-width-responsive'] = 'true'
+
+    case 'vertical':
+    case 'skyscraper':
+      a['data-ad-slot'] = props.adSlot || '3487917390'
+      a['data-ad-format'] = 'auto'
+      a['data-full-width-responsive'] = 'true'
       break
-    }
-    case 'square': {
-      base['data-ad-slot'] = props.adSlot || '7663977887'
-      base['data-ad-format'] = 'auto'
-      base['data-full-width-responsive'] = 'true'
+
+    case 'square':
+      a['data-ad-slot'] = props.adSlot || '7663977887'
+      a['data-ad-format'] = 'auto'
+      a['data-full-width-responsive'] = 'true'
       break
-    }
-    case 'multiplex': {
-      // Autorelaxed
-      base['data-ad-slot'] = props.adSlot || '6808134701'
-      base['data-ad-format'] = 'autorelaxed'
+
+    case 'multiplex':
+      a['data-ad-slot'] = props.adSlot || '6808134701'
+      a['data-ad-format'] = 'autorelaxed'
       break
-    }
-    case 'in-article': {
-      base['data-ad-slot'] = props.adSlot || '6501428979'
-      base['data-ad-layout'] = props.adLayout || 'in-article'
-      base['data-ad-format'] = 'fluid'
+
+    case 'multiplex-fixed':
+      a['data-ad-slot'] = props.adSlot || '3375031396'
       break
-    }
-    case 'in-feed': {
-      base['data-ad-slot'] = props.adSlot || '9130894804'
-      base['data-ad-format'] = 'fluid'
-      base['data-ad-layout-key'] = props.adLayoutKey || '-6v+f0-19-44+c6'
+
+    case 'in-article':
+      a['data-ad-slot'] = props.adSlot || '6501428979'
+      a['data-ad-layout'] = props.adLayout || 'in-article'
+      a['data-ad-format'] = 'fluid'
       break
-    }
-    case 'fixed': {
-      // Use explicit width/height
-      base['data-ad-slot'] = props.adSlot || '8939839370'
+
+    case 'in-feed':
+      a['data-ad-slot'] = props.adSlot || '9130894804'
+      a['data-ad-format'] = 'fluid'
+      a['data-ad-layout-key'] = props.adLayoutKey || '-6v+f0-19-44+c6'
       break
-    }
+
+    case 'fixed':
+      a['data-ad-slot'] = props.adSlot || '8939839370'
+      break
   }
 
-  if (props.adTest) base['data-adtest'] = props.adTest
+  if (props.adTest) a['data-adtest'] = props.adTest
+  return a
+}
 
-  // style for <ins>
-  const style =
-    props.variant === 'fixed'
-      ? `display:inline-block;${props.width ? `width:${props.width};` : 'width:728px;'}${props.height ? `height:${props.height};` : 'height:90px;'}`
-      : 'display:block'
+function insStyleForVariant() {
+  if (props.variant === 'fixed' || props.variant === 'multiplex-fixed') {
+    const w = props.width  || (props.variant === 'multiplex-fixed' ? '900px' : '728px')
+    const h = props.height || (props.variant === 'multiplex-fixed' ? '250px' : '90px')
+    return `display:inline-block;width:${w};height:${h}`
+  }
+  return 'display:block'
+}
 
-  return { attrs: base, style }
-})
-
-/** Render or re-render the ad */
 async function renderAd() {
   const host = mountRef.value
   if (!host) return
 
-  // Clean previous content to avoid "already filled" errors
+  // Clear previous fill
   host.innerHTML = ''
 
   const ins = document.createElement('ins')
   ins.className = 'adsbygoogle'
-  ins.setAttribute('style', resolved.value.style)
+  ins.setAttribute('style', insStyleForVariant())
 
-  // Apply attributes
-  Object.entries(resolved.value.attrs).forEach(([k, v]) => {
-    if (v != null && v !== '') ins.setAttribute(k, v)
-  })
-
+  const attrs = attrsForVariant()
+  Object.entries(attrs).forEach(([k, v]) => ins.setAttribute(k, v))
   host.appendChild(ins)
 
-  // Push to queue
   // @ts-ignore
   const q = (window.adsbygoogle = window.adsbygoogle || [])
-  try { q.push({}) } catch { /* ignore */ }
+  try { q.push({}) } catch {}
 }
 
 onMounted(async () => {
   await nextTick()
-  await ensureAdsScript()
+  await ensureScript()
   await renderAd()
 })
 
-// Re-render on route change or external refreshKey
 watch(
   () => [route.fullPath, props.refreshKey, props.variant, props.adSlot, props.width, props.height],
   async () => {
@@ -184,12 +156,7 @@ watch(
 </script>
 
 <template>
-  <!-- Wrapper: style in main.css -->
-  <div
-    class="gads"
-    :class="['gads--' + variant, dataClass]"
-    role="none"
-  >
-    <div ref="mountRef" class="gads__frame" />
+  <div :class="['gads', `gads--${variant}`, dataClass]" role="none">
+    <div ref="mountRef" class="gads__frame"></div>
   </div>
 </template>

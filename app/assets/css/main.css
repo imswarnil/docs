@@ -136,41 +136,33 @@
   }
 }
 
-/* Google Ads wrapper */
-.gads {
-  width: 100%;
-  margin: 1rem 0;
-  display: block;
-}
+/* generic wrapper */
+.gads { width: 100%; margin: 1rem 0; }
+.gads__frame { border: 1px solid var(--ui-border, rgba(0,0,0,.08)); border-radius: var(--ui-radius,.25rem); padding: 8px; background: var(--ui-elevated,#fff); }
+html.dark .gads__frame { border-color: var(--ui-border, rgba(255,255,255,.14)); background: var(--ui-elevated,#111827); }
 
-.gads__frame {
-  /* a faint border + rounded, adjust to your SLDS-ish theme */
-  border: 1px solid var(--ui-border, rgba(0,0,0,.08));
-  border-radius: var(--ui-radius, .25rem);
-  padding: 8px;              /* inner padding around ad */
-  background: var(--ui-elevated, #fff);
-}
+/* reserve sensible heights so the layout doesn't jump */
+.gads--horizontal .gads__frame,
+.gads--leaderboard .gads__frame { min-height: 90px; max-width: 728px; margin-inline: auto; }
 
-/* Dark mode soft border */
-html.dark .gads__frame {
-  border-color: var(--ui-border, rgba(255,255,255,.14));
-  background: var(--ui-elevated, #111827);
-}
+.gads--square .gads__frame { min-height: 250px; max-width: 336px; margin-inline: auto; }
 
-/* Optional: size caps by variant (you can tweak these) */
-.gads--square .gads__frame     { max-width: 336px; margin-inline: auto; }
-.gads--vertical .gads__frame   { max-width: 320px; margin-inline: auto; }
-.gads--horizontal .gads__frame { max-width: 728px; margin-inline: auto; }
-.gads--multiplex .gads__frame  { max-width: 1200px; margin-inline: auto; }
-.gads--in-article .gads__frame { max-width: 100%; }
-.gads--in-feed .gads__frame    { max-width: 100%; }
+.gads--vertical .gads__frame { min-height: 280px; max-width: 320px; margin-inline: auto; }
 
-/* For 'fixed' variant we don't cap: use the width/height props */
-.gads--fixed .gads__frame { display: inline-block; }
+.gads--skyscraper .gads__frame { min-height: 600px; max-width: 300px; margin-inline: auto; }
 
-/* Mobile-friendly spacing */
+.gads--multiplex .gads__frame { min-height: 200px; max-width: 100%; }
+
+.gads--in-article .gads__frame,
+.gads--in-feed .gads__frame { min-height: 120px; max-width: 100%; }
+
+/* fixed variants take explicit width/height via inline style */
+.gads--fixed .gads__frame,
+.gads--multiplex-fixed .gads__frame { padding: 0; border: none; }
+
 @media (max-width: 640px) {
-  .gads { margin: 0.75rem 0; }
+  .gads { margin: .75rem 0; }
   .gads__frame { padding: 6px; }
-  .gads--horizontal .gads__frame { max-width: 100%; } /* let responsive fill */
+  .gads--horizontal .gads__frame,
+  .gads--leaderboard .gads__frame { max-width: 100%; }
 }
