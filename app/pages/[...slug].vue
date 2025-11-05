@@ -55,9 +55,7 @@ const links = computed(() => {
 
 
 <template>
-  <ClientOnly>
-  <GoogleAd variant="horizontal" />
-</ClientOnly>
+   <GoogleAd variant="fixed" width="728px" height="90px" />
   <UPage v-if="page">
     <UPageHeader
       :title="page.title"
