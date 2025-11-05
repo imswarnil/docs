@@ -31,54 +31,10 @@ provide('navigation', navigation)
   <UApp>
     <NuxtLoadingIndicator />
     <AppHeader />
-    <div class="hidden lg:block mt-8 p-4 border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 rounded-lg">
-            <ClientOnly>
-              <GoogleAd
-                ad-slot="7663977887"
-                ad-format="auto"
-                :fullWidth="true"
-                ins-style="display:block"
-                :refreshKey="page?.updatedAt || page?.path"
-              />
-            </ClientOnly>
-    </div>
     <UMain>
       <NuxtLayout>
-        <div class="hidden lg:block mt-8 p-4 border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 rounded-lg">
-            <ClientOnly>
-              <GoogleAd
-                ad-slot="7663977887"
-                ad-format="auto"
-                :fullWidth="true"
-                ins-style="display:block"
-                :refreshKey="page?.updatedAt || page?.path"
-              />
-            </ClientOnly>
-          </div>
         <NuxtPage />
-        <div class="hidden lg:block mt-8 p-4 border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 rounded-lg">
-            <ClientOnly>
-              <GoogleAd
-                ad-slot="7663977887"
-                ad-format="auto"
-                :fullWidth="true"
-                ins-style="display:block"
-                :refreshKey="page?.updatedAt || page?.path"
-              />
-            </ClientOnly>
-          </div>
       </NuxtLayout>
-      <div class="hidden lg:block mt-8 p-4 border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 rounded-lg">
-            <ClientOnly>
-              <GoogleAd
-                ad-slot="7663977887"
-                ad-format="auto"
-                :fullWidth="true"
-                ins-style="display:block"
-                :refreshKey="page?.updatedAt || page?.path"
-              />
-            </ClientOnly>
-          </div>
     </UMain>
     <AppFooter />
     <ClientOnly>
