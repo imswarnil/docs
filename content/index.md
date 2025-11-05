@@ -1,21 +1,23 @@
 ---
 seo:
-  title: Nuxt Docs Template
-  description: Create stunning, fast and SEO-optimized documentation sites with Nuxt UI.
+  title: CRM Analytics Training — Salesforce
+  description: Learn Salesforce CRM Analytics (Tableau CRM) the SLDS way. Clean UI, practical dashboards, and hands-on projects powered by Nuxt UI + Nuxt Content.
 ---
 
-::u-page-hero{class="dark:bg-gradient-to-b from-neutral-900 to-neutral-950"}
+::u-page-hero{class="crma-hero dark:bg-gradient-to-b from-neutral-900 to-neutral-950"}
 ---
 orientation: horizontal
 ---
 #top
 :hero-background
+<div class="crma-circle crma-circle--lg"></div>
+<div class="crma-circle crma-circle--sm"></div>
 
 #title
-Learn Salesforce [CRMAnalytics]{.text-primary}.
+Master Salesforce [CRM Analytics]{.text-primary}.
 
 #description
-Build professional documentation with Nuxt UI's powerful components, enhanced typography, and seamless Nuxt Content integration. The same system trusted by the entire [Nuxt ecosystem](https://nuxt.com).
+Build real, production-ready analytics apps the Salesforce way: SLDS-styled UI, datasets, recipes, dashboards, security, and performance. Taught with Nuxt UI + Content so your docs and demos stay in sync.
 
 #links
   :::u-button
@@ -36,16 +38,24 @@ Build professional documentation with Nuxt UI's powerful components, enhanced ty
   to: https://github.com/nuxt-ui-templates/docs
   target: _blank
   ---
-  Use this template
+  View on GitHub
   :::
 
 #default
-<iframe src="https://www.youtube-nocookie.com/embed/_eQxomah-nA?si=pDSzchUBDKb2NQu7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="aspect-ratio: 16/9; width: 100%;"></iframe>
+<!-- Keep a simple, working embed; you can swap to your custom player component later -->
+<iframe src="https://www.youtube-nocookie.com/embed/_eQxomah-nA?rel=0&modestbranding=1&playsinline=1"
+        title="CRM Analytics Intro"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+        style="aspect-ratio: 16/9; width: 100%;">
+</iframe>
 ::
 
 ::u-page-section{class="dark:bg-neutral-950"}
 #title
-Enhanced with Nuxt Content
+Why this course works
 
 #links
   :::u-button
@@ -54,7 +64,7 @@ Enhanced with Nuxt Content
   size: lg
   target: _blank
   to: https://content.nuxt.com/docs/getting-started/installation
-  trailingIcon: i-lucide-arrow-right
+  trailing-icon: i-lucide-arrow-right
   variant: subtle
   ---
   Explore Nuxt Content
@@ -63,35 +73,13 @@ Enhanced with Nuxt Content
 #features
   :::u-page-feature
   ---
-  icon: i-simple-icons-markdown
+  icon: i-lucide-palette
   ---
   #title
-  MDC Enhanced Markdown
+  SLDS-inspired UI
 
   #description
-  Write in Markdown while embedding Vue components. Seamlessly integrate interactive elements in your content.
-  :::
-
-  :::u-page-feature
-  ---
-  icon: i-lucide-file-text
-  ---
-  #title
-  File-based Routing
-
-  #description
-  Organize content in folders and files. Your documentation structure automatically becomes your navigation.
-  :::
-
-  :::u-page-feature
-  ---
-  icon: i-lucide-code
-  ---
-  #title
-  Syntax Highlighting
-
-  #description
-  Beautiful code blocks with language detection, line numbers, and copy buttons. Support for 100+ languages.
+  Your playground matches Salesforce. Tokens, compact radius, subtle borders, accessible focus states—shipped.
   :::
 
   :::u-page-feature
@@ -99,21 +87,43 @@ Enhanced with Nuxt Content
   icon: i-lucide-database
   ---
   #title
-  Content Database
+  Data to Dashboards
 
   #description
-  Query your content with a MongoDB-like API. Filter, sort, and search through your documentation programmatically.
+  Go from objects → datasets → recipes → lenses → dashboards with guardrails for scale and security.
   :::
 
   :::u-page-feature
   ---
-  icon: i-lucide-file-code
+  icon: i-lucide-code
   ---
   #title
-  Frontmatter Support
+  Copy-paste Ready
 
   #description
-  Add metadata to your content files. Define SEO tags, navigation properties, and custom fields.
+  Every pattern is a working snippet—no vague theory. Paste, run, and ship.
+  :::
+
+  :::u-page-feature
+  ---
+  icon: i-lucide-shield-check
+  ---
+  #title
+  Row-Level Security
+
+  #description
+  Learn user filters, bindings, and secure queries the right way—without breaking UX.
+  :::
+
+  :::u-page-feature
+  ---
+  icon: i-lucide-rocket
+  ---
+  #title
+  Performance First
+
+  #description
+  Caching, aggregates, query pruning, and dataset design to keep dashboards snappy.
   :::
 
   :::u-page-feature
@@ -121,10 +131,10 @@ Enhanced with Nuxt Content
   icon: i-lucide-git-branch
   ---
   #title
-  Version Control
+  Versioned Content
 
   #description
-  Content lives in your repository. Branch, review, and deploy documentation alongside your code.
+  Docs live with code. Branch, review, and deploy changes like a pro.
   :::
 ::
 
@@ -132,16 +142,15 @@ Enhanced with Nuxt Content
   :::u-page-c-t-a
   ---
   links:
-    - label: Start building
+    - label: Start learning
       to: '/getting-started'
-      trailingIcon: i-lucide-arrow-right
-    - label: View on GitHub
-      to: 'https://github.com/nuxt-ui-templates/docs'
-      target: _blank
+      trailing-icon: i-lucide-arrow-right
+    - label: Syllabus
+      to: '/docs/syllabus'
       variant: subtle
-      icon: i-simple-icons-github
-  title: Ready to build an amazing documentation?
-  description: Join thousands of developers building with Nuxt and Nuxt UI. Get this template and start shipping today.
+      icon: i-lucide-book-open-text
+  title: Ready to build real CRM Analytics dashboards?
+  description: Follow the guided path, ship dashboards your AEs actually use, and keep your docs beautiful and in sync with Nuxt UI.
   class: dark:bg-neutral-950
   ---
 
