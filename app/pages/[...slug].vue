@@ -27,8 +27,8 @@ defineOgImageComponent('Docs', { headline: headline.value })
 <template>
   <!-- (1) Top of page: leaderboard -->
   <ClientOnly>
-    <GoogleAd variant="leaderboard" class="mt-4" maxH="90px" />
-  </ClientOnly>
+<GoogleAd variant="fixed" width="728px" height="90px" />
+</ClientOnly>
 
   <UPage v-if="page">
     <UPageHeader :title="page.title" :description="page.description" :headline="headline">
