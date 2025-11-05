@@ -150,5 +150,6 @@ Enhanced with Nuxt Content
 ::
 
 
-::crma-homepage
+#default
+<crma-homepage />
 ::
