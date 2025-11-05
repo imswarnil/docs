@@ -70,16 +70,22 @@ const links = computed(() => {
     </UPageHeader>
 
     <!-- Sidebar Ad -->
-          <div class="lg:block mt-8 p-4 border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 rounded-lg">
-            <ClientOnly>
-              <GoogleAd
-                ad-slot="7663977887"
-                :fullWidth="true"
-                ins-style="display:block"
-                :refreshKey="page?.updatedAt || page?.path"
-              />
-            </ClientOnly>
-          </div>
+    <div class="my-6 flex justify-center">
+  <ClientOnly>
+    <template #fallback>
+      <AdPlaceholder variant="square" :maxWidth="'250px'" badge="Ad" label="Advertisement" />
+    </template>
+
+    <!-- Fixed-size square container -->
+    <div style="display:inline-block; width:250px; height:250px;">
+      <GoogleAd
+        ad-slot="YOUR_250x250_SLOT_ID"
+        :fullWidth="false"
+        ins-style="display:inline-block;width:250px;height:250px"
+      />
+    </div>
+  </ClientOnly>
+</div>
 
     <UPageBody>
       <ContentRenderer
