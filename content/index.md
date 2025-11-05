@@ -150,12 +150,6 @@ Enhanced with Nuxt Content
 ::
 
 
----
-seo:
-  title: Salesforce CRM Analytics Training | Master Einstein Analytics
-  description: Official Salesforce CRM Analytics training program. Learn from certified experts, master data preparation, dashboard creation, and advanced analytics.
----
-
 ::u-page-hero{class="dark:bg-gradient-to-b from-slate-900 to-slate-950"}
 ---
 orientation: horizontal
