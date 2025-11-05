@@ -135,3 +135,22 @@
     border: 1px solid var(--ui-border);
   }
 }
+
+/* Generic ad wrapper spacing (adjust to taste) */
+.ad.ad--container {
+  margin: var(--space-6, 1rem) 0;
+  padding: var(--space-3, .75rem);
+  border-radius: var(--radius-2, .5rem);
+  border: 1px dashed var(--ui-border, rgba(0,0,0,.1));
+  background: var(--ui-bg, transparent);
+}
+
+/* Optional: tighter variants */
+.ad--leaderboard,
+.ad--horizontal {
+  padding: var(--space-2, .5rem);
+}
+
+html.dark .ad.ad--container {
+  border-color: var(--ui-border, rgba(255,255,255,.15));
+}
