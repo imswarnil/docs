@@ -135,34 +135,108 @@
     border: 1px solid var(--ui-border);
   }
 }
+/* =============================
+   GoogleAd.vue wrapper styling
+   ============================= */
+.adbox {
+  /* Never exceed parent width/height */
+  width: 100%;
+  max-width: var(--ad-max-w, 100%);
+  max-height: var(--ad-max-h, none);
+  overflow: hidden;
 
-/* generic wrapper */
-.gads { width: 100%; margin: 1rem 0; }
-.gads__frame { border: 1px solid var(--ui-border, rgba(0,0,0,.08)); border-radius: var(--ui-radius,.25rem); padding: 8px; background: var(--ui-elevated,#fff); }
-html.dark .gads__frame { border-color: var(--ui-border, rgba(255,255,255,.14)); background: var(--ui-elevated,#111827); }
+  /* Visual treatment */
+  margin: 1rem 0;
+  box-sizing: border-box;
+}
 
-/* reserve sensible heights so the layout doesn't jump */
-.gads--horizontal .gads__frame,
-.gads--leaderboard .gads__frame { min-height: 90px; max-width: 728px; margin-inline: auto; }
+.adbox__frame {
+  /* dashed, rounded, neutral background; contains the INS */
+  border: 1px dashed var(--ui-border, rgba(0,0,0,.12));
+  border-radius: 12px;
+  background: var(--ui-elevated, #fff);
+  padding: 8px;
+  overflow: hidden;            /* prevent scrollbars */
+  width: 100%;
+  height: auto;
+  min-height: var(--ad-min-h, 0px);
+  box-sizing: border-box;
+}
 
-.gads--square .gads__frame { min-height: 250px; max-width: 336px; margin-inline: auto; }
+html.dark .adbox__frame {
+  border-color: var(--ui-border, rgba(255,255,255,.18));
+  background: var(--ui-elevated, #0b0f19);
+}
 
-.gads--vertical .gads__frame { min-height: 280px; max-width: 320px; margin-inline: auto; }
+/* Mount node that holds <ins> */
+.adbox__mount {
+  /* Make the INS measure strictly within our frame */
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
 
-.gads--skyscraper .gads__frame { min-height: 600px; max-width: 300px; margin-inline: auto; }
+/* ---- Variant nudges (to steer responsive choices) ---- */
 
-.gads--multiplex .gads__frame { min-height: 200px; max-width: 100%; }
+/* Horizontal / Leaderboard: keep it wide but never overflow */
+.adbox--horizontal .adbox__frame,
+.adbox--leaderboard .adbox__frame {
+  max-width: 728px;
+  margin-inline: auto;
+  min-height: 90px;   /* reserve space to reduce CLS */
+}
 
-.gads--in-article .gads__frame,
-.gads--in-feed .gads__frame { min-height: 120px; max-width: 100%; }
+/* Vertical / Skyscraper: cap width so a tall unit can fit but not overflow */
+.adbox--vertical .adbox__frame,
+.adbox--skyscraper .adbox__frame {
+  max-width: 320px;
+  margin-inline: auto;
+  min-height: 280px;
+}
 
-/* fixed variants take explicit width/height via inline style */
-.gads--fixed .gads__frame,
-.gads--multiplex-fixed .gads__frame { padding: 0; border: none; }
+/* ✅ Responsive square: clamp to 250px so AdSense can't pick 300x600 */
+.adbox--square .adbox__frame {
+  max-width: 250px;
+  margin-inline: auto;
+  padding: 0;         /* INS width ≈ container width */
+  border: 1px dashed var(--ui-border, rgba(0,0,0,.12));
+}
 
+/* ✅ Strict square: size is set inline on <ins> (250x250) */
+.adbox--square-fixed .adbox__frame {
+  max-width: 250px;
+  margin-inline: auto;
+  padding: 0;
+}
+
+/* In-article / In-feed / Multiplex: allow full width, but contained */
+.adbox--in-article .adbox__frame,
+.adbox--in-feed .adbox__frame,
+.adbox--multiplex .adbox__frame {
+  max-width: 100%;
+}
+
+/* True fixed boxes: we remove padding so INS exact size fits snugly */
+.adbox--fixed .adbox__frame {
+  padding: 0;
+  margin-inline: auto;
+  border: 1px dashed var(--ui-border, rgba(0,0,0,.12));
+}
+
+/* Mobile tweaks */
 @media (max-width: 640px) {
-  .gads { margin: .75rem 0; }
-  .gads__frame { padding: 6px; }
-  .gads--horizontal .gads__frame,
-  .gads--leaderboard .gads__frame { max-width: 100%; }
+  .adbox { margin: .75rem 0; }
+  .adbox__frame { padding: 6px; }
+
+  .adbox--leaderboard .adbox__frame,
+  .adbox--horizontal .adbox__frame {
+    max-width: 100%;
+    min-height: 70px;
+  }
+
+  /* Let square shrink gracefully; Google may return 200x200 etc */
+  .adbox--square .adbox__frame,
+  .adbox--square-fixed .adbox__frame {
+    max-width: 220px;
+  }
 }
