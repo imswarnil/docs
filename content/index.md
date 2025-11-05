@@ -148,8 +148,3 @@ Enhanced with Nuxt Content
   :stars-bg
   :::
 ::
-
-
-#default
-<crma-homepage />
-::

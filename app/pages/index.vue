@@ -25,3 +25,6 @@ useSeoMeta({
     :prose="false"
   />
 </template>
+
+<crma-homepage />
+::
