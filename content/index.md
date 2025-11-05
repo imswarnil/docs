@@ -1,7 +1,7 @@
 ---
 seo:
-  title: Salesforce CRM Analytics Training
-  description: Learn Salesforce CRM Analytics (Einstein Analytics) end-to-end — datasets, recipes, SAQL, bindings, dashboards, security, and SLDS-polished UX.
+  title: Nuxt Docs Template
+  description: Create stunning, fast and SEO-optimized documentation sites with Nuxt UI.
 ---
 
 ::u-page-hero{class="dark:bg-gradient-to-b from-neutral-900 to-neutral-950"}
@@ -12,74 +12,75 @@ orientation: horizontal
 :hero-background
 
 #title
-Master [Salesforce CRM Analytics]{.text-primary}.
+Learn Salesforce [CRMAnalytics]{.text-primary}.
 
 #description
-Hands-on training to ship real dashboards fast. Learn **Datasets & Recipes**, **SAQL & Bindings**, **Row-Level Security**, and **Dashboard UX** — all in a Nuxt-powered docs experience styled like **SLDS**.
+Build professional documentation with Nuxt UI's powerful components, enhanced typography, and seamless Nuxt Content integration. The same system trusted by the entire [Nuxt ecosystem](https://nuxt.com).
 
 #links
   :::u-button
   ---
-  to: /docs/getting-started
+  to: /getting-started
   size: xl
   trailing-icon: i-lucide-arrow-right
   ---
-  Start learning
+  Get started
   :::
 
   :::u-button
   ---
-  icon: i-lucide-book-open
+  icon: i-simple-icons-github
   color: neutral
   variant: outline
   size: xl
-  to: /docs/syllabus
+  to: https://github.com/nuxt-ui-templates/docs
+  target: _blank
   ---
-  View syllabus
+  Use this template
   :::
 
 #default
-<iframe src="https://www.youtube-nocookie.com/embed/_eQxomah-nA?rel=0&modestbranding=1" title="CRM Analytics — Overview" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="aspect-ratio: 16/9; width: 100%;"></iframe>
+<iframe src="https://www.youtube-nocookie.com/embed/_eQxomah-nA?si=pDSzchUBDKb2NQu7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="aspect-ratio: 16/9; width: 100%;"></iframe>
 ::
 
 ::u-page-section{class="dark:bg-neutral-950"}
 #title
-Built for Salesforce CRM Analytics
+Enhanced with Nuxt Content
 
 #links
   :::u-button
   ---
   color: neutral
   size: lg
-  target: _self
-  to: /docs/getting-started/installation
+  target: _blank
+  to: https://content.nuxt.com/docs/getting-started/installation
   trailingIcon: i-lucide-arrow-right
   variant: subtle
   ---
-  Get set up
+  Explore Nuxt Content
   :::
 
 #features
   :::u-page-feature
   ---
-  icon: i-lucide-database
+  icon: i-simple-icons-markdown
   ---
   #title
-  Datasets & Recipes
+  MDC Enhanced Markdown
 
   #description
-  Connect, clean, and transform data with Recipes. Learn best practices for incremental loads, joins, and scheduling.
+  Write in Markdown while embedding Vue components. Seamlessly integrate interactive elements in your content.
   :::
 
   :::u-page-feature
   ---
-  icon: i-lucide-bar-chart-3
+  icon: i-lucide-file-text
   ---
   #title
-  Dashboards & Lenses
+  File-based Routing
 
   #description
-  Build fast, interactive dashboards. Drill with lenses, design with SLDS-inspired tokens, and ship production-ready UX.
+  Organize content in folders and files. Your documentation structure automatically becomes your navigation.
   :::
 
   :::u-page-feature
@@ -87,43 +88,43 @@ Built for Salesforce CRM Analytics
   icon: i-lucide-code
   ---
   #title
-  SAQL & Bindings
+  Syntax Highlighting
 
   #description
-  Write powerful SAQL queries and dynamic bindings for cross-widgets, selectors, and responsive KPIs.
+  Beautiful code blocks with language detection, line numbers, and copy buttons. Support for 100+ languages.
   :::
 
   :::u-page-feature
   ---
-  icon: i-lucide-shield
+  icon: i-lucide-database
   ---
   #title
-  Security & RLS
+  Content Database
 
   #description
-  Implement row-level security (RLS), share datasets safely, and align access with Salesforce roles.
+  Query your content with a MongoDB-like API. Filter, sort, and search through your documentation programmatically.
   :::
 
   :::u-page-feature
   ---
-  icon: i-lucide-rocket
+  icon: i-lucide-file-code
   ---
   #title
-  Deploy with Confidence
+  Frontmatter Support
 
   #description
-  Version your assets, move between sandboxes and prod, and automate with CI-friendly metadata.
+  Add metadata to your content files. Define SEO tags, navigation properties, and custom fields.
   :::
 
   :::u-page-feature
   ---
-  icon: i-lucide-search
+  icon: i-lucide-git-branch
   ---
   #title
-  Nuxt-Powered Docs
+  Version Control
 
   #description
-  Rich MDC prose, instant search (⌘K), and copy-ready code blocks — all tuned to the CRM Analytics workflow.
+  Content lives in your repository. Branch, review, and deploy documentation alongside your code.
   :::
 ::
 
@@ -131,15 +132,16 @@ Built for Salesforce CRM Analytics
   :::u-page-c-t-a
   ---
   links:
-    - label: Start the course
-      to: '/docs/getting-started'
+    - label: Start building
+      to: '/getting-started'
       trailingIcon: i-lucide-arrow-right
-    - label: Browse examples
-      to: '/docs/examples'
+    - label: View on GitHub
+      to: 'https://github.com/nuxt-ui-templates/docs'
+      target: _blank
       variant: subtle
-      icon: i-lucide-layers
-  title: Ready to become a CRM Analytics pro?
-  description: Follow the step-by-step path — from data ingestion to dynamic SAQL — and publish dashboards your team will love.
+      icon: i-simple-icons-github
+  title: Ready to build an amazing documentation?
+  description: Join thousands of developers building with Nuxt and Nuxt UI. Get this template and start shipping today.
   class: dark:bg-neutral-950
   ---
 
