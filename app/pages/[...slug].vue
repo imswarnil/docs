@@ -46,7 +46,6 @@ defineOgImageComponent('Docs', { headline: headline.value })
     <ClientOnly>
       <GoogleAd variant="horizontal" />
     </ClientOnly>
-
     <UPageBody>
       <!-- (3) In-article (fluid) before content -->
       <ClientOnly>
