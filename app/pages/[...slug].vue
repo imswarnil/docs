@@ -70,7 +70,7 @@ const links = computed(() => {
     </UPageHeader>
 
     <!-- Sidebar Ad -->
-          <div class="hidden lg:block mt-8 p-4 border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 rounded-lg">
+          <div class="lg:block mt-8 p-4 border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 rounded-lg">
             <ClientOnly>
               <GoogleAd
                 ad-slot="7663977887"
@@ -91,7 +91,7 @@ const links = computed(() => {
     </UPageBody>
 
     <!-- Sidebar Ad -->
-          <div class="hidden lg:block mt-8 p-4 border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 rounded-lg">
+          <div class=" lg:block mt-8 p-4 border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 rounded-lg">
             <ClientOnly>
               <GoogleAd
                 ad-slot="7663977887"
@@ -142,7 +142,7 @@ const links = computed(() => {
           </div>
 
           <!-- Sidebar Ad -->
-          <div class="hidden lg:block mt-8 p-4 border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 rounded-lg">
+          <div class=" lg:block mt-8 p-4 border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 rounded-lg">
             <ClientOnly>
               <GoogleAd
                 ad-slot="7663977887"
