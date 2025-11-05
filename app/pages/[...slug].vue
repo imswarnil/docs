@@ -56,12 +56,7 @@ const links = computed(() => {
 
 <template>
   <ClientOnly>
-    <GoogleAd kind="leaderboard" />
-    <GoogleAd kind="in-article" />
-    <GoogleAd kind="vertical" />
-    <GoogleAd kind="square" />
-    <GoogleAd kind="multiplex" />
-    <GoogleAd kind="custom" width="900px" height="250px" />
+    <GoogleAd kind="custom" width="728px" height="90px" />
   </ClientOnly>
   <UPage v-if="page">
     <UPageHeader
@@ -120,4 +115,7 @@ const links = computed(() => {
       </UContentToc>
     </template>
   </UPage>
+  <ClientOnly>
+    <GoogleAd kind="leaderboard" />
+  </ClientOnly>
 </template>
