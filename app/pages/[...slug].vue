@@ -52,7 +52,17 @@ const links = computed(() => {
 })
 </script>
 
+
+
 <template>
+  <ClientOnly>
+    <GoogleAd kind="leaderboard" />
+    <GoogleAd kind="in-article" />
+    <GoogleAd kind="vertical" />
+    <GoogleAd kind="square" />
+    <GoogleAd kind="multiplex" />
+    <GoogleAd kind="custom" width="900px" height="250px" />
+  </ClientOnly>
   <UPage v-if="page">
     <UPageHeader
       :title="page.title"
@@ -68,10 +78,6 @@ const links = computed(() => {
         <PageHeaderLinks />
       </template>
     </UPageHeader>
-
-    <ClientOnly>
-  <GoogleAd kind="leaderboard" :maxWidth="'728px'" />
-  </ClientOnly>
 
     <UPageBody>
       <ContentRenderer
@@ -109,10 +115,7 @@ const links = computed(() => {
               :links="links"
             />
           </div>
-
-    <ClientOnly><GoogleAd kind="square" /></ClientOnly>
-
-          
+         
         </template>
       </UContentToc>
     </template>
