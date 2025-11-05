@@ -39,9 +39,14 @@ Transform your data into actionable insights with our comprehensive Salesforce C
   :::
 
 #default
-<div class="video-container">
-  <iframe src="https://www.youtube-nocookie.com/embed/_eQxomah-nA?si=pDSzchUBDKb2NQu7" title="CRM Analytics Course Introduction" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="aspect-ratio: 16/9; width: 100%; border-radius: 0.5rem;"></iframe>
-</div>
+:youtube-custom-clip{
+  video-id="dQw4w9WgXcQ"
+  start="30"
+  end="75"
+  autoplay
+  muted
+  poster="/images/crma/hero-poster.jpg"
+}
 ::
 
 ::u-page-section{class="dark:bg-neutral-950"}
