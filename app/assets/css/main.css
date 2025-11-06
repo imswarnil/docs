@@ -137,73 +137,89 @@
 }
 
 
-/* ==== Ad unit wrapper (shared) ==== */
+/* assets/css/ads.css (or similar global stylesheet) */
 .adunit {
-  width: 100%;
-  margin: 1rem 0;
   display: flex;
-  justify-content: center; /* center fixed-size boxes */
+  justify-content: center;
+  margin: 1.5rem 0; /* Add some vertical space around ads */
+  width: 100%;
 }
 
 .adunit__frame {
-  border: 1px dashed var(--ui-border, rgba(0,0,0,.12));
+  /* Using your theme variables for consistency */
+  background: var(--ui-bg-muted);
+  border: 1px dashed var(--ui-border-accented);
   border-radius: 12px;
-  background: var(--ui-elevated, #fff);
-  padding: 8px;
   overflow: hidden;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 html.dark .adunit__frame {
-  border-color: var(--ui-border, rgba(255,255,255,.18));
-  background: var(--ui-elevated, #0b0f19);
+  background: var(--ui-bg-elevated);
+  border-color: var(--ui-border-muted);
 }
 
-.adunit__mount { line-height: 0; }
+.adunit__mount {
+  line-height: 0; /* Prevents extra space from inline-block elements */
+}
 
-/* ==== Size lanes (no props needed) ==== */
-.adunit[data-variant="large-leaderboard"] .adunit__frame { width: 970px; }
-.adunit[data-variant="leaderboard"]       .adunit__frame { width: 728px; }
-.adunit[data-variant="small-leaderboard"] .adunit__frame { width: 320px; }
-.adunit[data-variant="wide-skyscraper"]   .adunit__frame { width: 300px; }
-.adunit[data-variant="skyscraper"]        .adunit__frame { width: 160px; }
-.adunit[data-variant="rectangle"]         .adunit__frame { width: 300px; }
-.adunit[data-variant="square"]            .adunit__frame { width: 250px; }
+/* === Fixed Size Ad Units === */
+.adunit[data-variant=large-leaderboard] .adunit__frame { width: 970px; }
+.adunit[data-variant=leaderboard] .adunit__frame      { width: 728px; }
+.adunit[data-variant=small-leaderboard] .adunit__frame{ width: 320px; }
+.adunit[data-variant=wide-skyscraper] .adunit__frame  { width: 300px; }
+.adunit[data-variant=skyscraper] .adunit__frame      { width: 160px; }
+.adunit[data-variant=rectangle] .adunit__frame       { width: 300px; }
+.adunit[data-variant=square] .adunit__frame,
+.adunit[data-variant=square-fixed] .adunit__frame {
+  width: 250px;
+}
 
-/* Responsive auto lanes will fill container width */
-.adunit[data-variant="horizontal"] .adunit__frame,
-.adunit[data-variant="vertical"]   .adunit__frame {
-  width: 100%;
+/* === Responsive/Fluid Ad Units === */
+.adunit[data-variant=horizontal] .adunit__frame,
+.adunit[data-variant=vertical] .adunit__frame,
+.adunit[data-variant=in-article] .adunit__frame,
+.adunit[data-variant=multiplex] .adunit__frame {
   max-width: 100%;
+  width: 100%;
 }
 
-/* ==== Mobile fallbacks (keep ads visible, avoid overflow) ==== */
+/* === Media Queries for Responsiveness === */
+
+/* On tablets and smaller devices, clamp widths to be friendly. */
+@media (max-width: 1024px) {
+  .adunit[data-variant=large-leaderboard] .adunit__frame {
+    width: min(970px, 100%);
+  }
+}
+
 @media (max-width: 768px) {
-  /* Large units gracefully shrink into the container via scale */
-  .adunit[data-variant="large-leaderboard"] .adunit__frame,
-  .adunit[data-variant="leaderboard"] .adunit__frame {
+  .adunit[data-variant=large-leaderboard] .adunit__frame,
+  .adunit[data-variant=leaderboard] .adunit__frame {
     width: min(728px, 100%);
   }
-
-  .adunit[data-variant="wide-skyscraper"] .adunit__frame {
+  .adunit[data-variant=wide-skyscraper] .adunit__frame {
     width: min(300px, 92vw);
   }
-
-  .adunit[data-variant="skyscraper"] .adunit__frame {
+  .adunit[data-variant=skyscraper] .adunit__frame {
     width: min(160px, 70vw);
   }
-
-  .adunit[data-variant="rectangle"] .adunit__frame {
+  .adunit[data-variant=rectangle] .adunit__frame {
     width: min(300px, 92vw);
   }
-
-  .adunit[data-variant="square"] .adunit__frame {
+  .adunit[data-variant=square] .adunit__frame,
+  .adunit[data-variant=square-fixed] .adunit__frame {
     width: min(250px, 70vw);
   }
-
-  /* If you prefer fully fluid on phones, use the responsive variants instead */
 }
 
-/* Extra padding tweak on very small screens */
+/* On small phones, reduce padding for a tighter look. */
 @media (max-width: 420px) {
-  .adunit__frame { padding: 6px; border-radius: 10px; }
+  .adunit__frame {
+    border-radius: 10px;
+    padding: 6px;
+  }
 }
