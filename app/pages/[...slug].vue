@@ -26,9 +26,10 @@ defineOgImageComponent('Docs', { headline: headline.value })
 
 <template>
  
- <ClientOnly>
-      <GoogleAd variant="horizontal" :refresh-key="route.path" />
-  </ClientOnly>
+  <ClientOnly>
+  <GoogleAd variant="leaderboard" />
+</ClientOnly>
+
 
   <UPage v-if="page">
     <UPageHeader :title="page.title" :description="page.description" :headline="headline">
@@ -42,29 +43,9 @@ defineOgImageComponent('Docs', { headline: headline.value })
       </template>
     </UPageHeader>
 
-    <ClientOnly>
-      <GoogleAd variant="rectangle" :refresh-key="route.path" />
-    </ClientOnly>
     <UPageBody>
-      <!-- (3) In-article (fluid) before content -->
-      <ClientOnly>
-        <GoogleAd variant="in-article" />
-      </ClientOnly>
-
       <ContentRenderer v-if="page" :value="page" />
-
-      <!-- (4) In-article between content & surround -->
-      <ClientOnly>
-        <GoogleAd variant="in-article" />
-      </ClientOnly>
-
       <USeparator v-if="surround?.length" />
-
-      <!-- (5) Multiplex at bottom of body -->
-      <ClientOnly>
-        <GoogleAd variant="multiplex" />
-      </ClientOnly>
-
       <UContentSurround :surround="surround" />
     </UPageBody>
 
@@ -77,27 +58,18 @@ defineOgImageComponent('Docs', { headline: headline.value })
             <UPageLinks :title="toc.bottom.title" :links="[]" />
           </div>
 
-          <!-- (6) Square (responsive, clamped to 250px) -->
-          <ClientOnly>
-            <GoogleAd variant="square" />
-          </ClientOnly>
+           <ClientOnly><GoogleAd variant="square" /></ClientOnly>
+  <ClientOnly><GoogleAd variant="rectangle" /></ClientOnly>
+  <ClientOnly><GoogleAd variant="vertical" /></ClientOnly>
 
-          <!-- (7) Strict 250x250 -->
-          <ClientOnly>
-            <GoogleAd variant="square-fixed" />
-          </ClientOnly>
-
-          <!-- (8) Vertical (responsive) -->
-          <ClientOnly>
-            <GoogleAd variant="vertical" />
-          </ClientOnly>
         </template>
       </UContentToc>
     </template>
   </UPage>
 
-  <ClientOnly>
-      <GoogleAd variant="multiplex" :refresh-key="route.path" />
- </ClientOnly>
+<!-- Footer multiplex -->
+<ClientOnly>
+  <GoogleAd variant="multiplex" />
+</ClientOnly>
 
 </template>
