@@ -1,42 +1,24 @@
 <template>
-  <svg
-  width="1020"
-  height="200"
-  viewBox="0 0 1020 200"
-  xmlns="http://www.w3.org/2000/svg"
-  fill="none"
-  preserveAspectRatio="xMinYMid meet"
-  role="img"
-  aria-label="CRMA"
-  class="w-auto h-6 shrink-0"
-  style="height: var(--logo-h, 1.5rem);"
->
-  <title>CRMA</title>
+<svg viewBox="6 0 1400 200" xmlns="http://www.w3.org/2000/svg" fill="none" role="img" aria-label="CRM Analytics Academy" class="w-auto h-[var(--logo-h,1.75rem)] shrink-0" style="height: var(--logo-h, 1.75rem);" preserveAspectRatio="xMinYMid meet">
+    <title>CRM Analytics Academy</title>
 
-  <!-- 3-bar chart icon, bottom-aligned to the text baseline (y=200) -->
-  <g transform="translate(20,0)">
-    <!-- short -->
-    <rect x="20"  y="124" width="44" height="76"  rx="10" fill="var(--ui-primary)"/>
-    <!-- mid -->
-    <rect x="80"  y="80"  width="44" height="120" rx="10" fill="var(--ui-primary)" opacity="0.9"/>
-    <!-- tall -->
-    <rect x="140" y="44"  width="44" height="156" rx="10" fill="var(--ui-primary)" opacity="0.85"/>
-  </g>
+    <!-- Left icon: 3 bar chart, baseline near y=200 -->
+    <g transform="translate(16,0)">
+      <!-- short -->
+      <rect x="20" y="128" width="44" height="72" rx="10" fill="var(--ui-primary, #009ED9)"></rect>
+      <!-- mid -->
+      <rect x="80" y="86" width="44" height="114" rx="10" fill="var(--ui-primary, #009ED9)" opacity="0.9"></rect>
+      <!-- tall -->
+      <rect x="140" y="50" width="44" height="150" rx="10" fill="var(--ui-primary, #009ED9)" opacity="0.85"></rect>
+    </g>
 
-  <!-- Wordmark, baseline sits on y=200 -->
-  <text
-    x="1020"
-    y="200"
-    text-anchor="end"
-    dominant-baseline="alphabetic"
-    fill="currentColor"
-    font-family="Outfit, Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial"
-    font-size="180"
-    font-weight="900"
-    letter-spacing="-0.03em"
-  >
-    CRMA
-  </text>
-</svg>
+    <!-- Wordmark: fits into a fixed lane using textLength (no overflow) -->
+    <!-- Lane starts after bars: x=260, ends ~ x=1360 (width ~1100) -->
+    <text x="260" y="170" fill="currentColor" font-family="Outfit, Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial" font-size="120" font-weight="900" letter-spacing="-0.03em" textLength="1120" lengthAdjust="spacingAndGlyphs" dominant-baseline="alphabetic" style="
+    letter-spacing: -4.9px;
+">
+      CRM Analytics Academy
+    </text>
+  </svg>
 
 </template>
