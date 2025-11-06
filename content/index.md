@@ -3,9 +3,10 @@ seo:
   title: Nuxt Docs Template
   description: Create stunning, fast and SEO-optimized documentation sites with Nuxt UI.
 ---
+
 ::u-page-hero{class="dark:bg-gradient-to-b from-neutral-900 to-neutral-950"}
 ---
-orientation: vertical
+orientation: horizontal
 ---
 #top
 :hero-background
@@ -14,7 +15,7 @@ orientation: vertical
 Learn Salesforce [CRMAnalytics]{.text-primary}.
 
 #description
-Master real CRM Analytics on Salesforce. Start with org setup, licenses, and permissions. Build clean datasets with connectors, sync, recipes, and dataflows. Query with SAQL, design fast dashboards, add bindings and interactions, secure with RLS, and ship to production with confidence.
+Level up fast with a practical, production-ready path: enable the org, assign licenses and permissions, build clean datasets with connectors, sync, recipes, and dataflows, master SAQL and bindings, add RLS, and ship dashboards users actually use.
 
 #links
   :::u-button
@@ -23,7 +24,7 @@ Master real CRM Analytics on Salesforce. Start with org setup, licenses, and per
   size: xl
   trailing-icon: i-lucide-arrow-right
   ---
-  Start learning
+  Get started
   :::
 
   :::u-button
