@@ -1,7 +1,7 @@
 ---
 seo:
-  title: 'Master Salesforce CRM Analytics | Your Learning Hub'
-  description: 'Start your journey to becoming a Salesforce CRM Analytics expert. Explore our learning paths, from beginner guides to advanced data integration and dashboard design.'
+  title: Nuxt Docs Template
+  description: Create stunning, fast and SEO-optimized documentation sites with Nuxt UI.
 ---
 
 ::u-page-hero{class="dark:bg-gradient-to-b from-neutral-900 to-neutral-950"}
@@ -12,10 +12,10 @@ orientation: horizontal
 :hero-background
 
 #title
-Your Journey to [Salesforce]{.text-primary} Expertise Starts Here.
+Learn Salesforce [CRM Analytics]{.text-primary}. 
 
 #description
-Unlock the full potential of CRM Analytics with our structured learning paths. Whether you're a beginner or a seasoned pro, find the resources you need to build powerful, data-driven solutions.
+Build professional documentation with Nuxt UI's powerful components, enhanced typography, and seamless Nuxt Content integration. The same system trusted by the entire [Nuxt ecosystem](https://nuxt.com).
 
 #links
   :::u-button
@@ -24,7 +24,7 @@ Unlock the full potential of CRM Analytics with our structured learning paths. W
   size: xl
   trailing-icon: i-lucide-arrow-right
   ---
-  Start Learning
+  Get started
   :::
 
   :::u-button
@@ -33,124 +33,134 @@ Unlock the full potential of CRM Analytics with our structured learning paths. W
   color: neutral
   variant: outline
   size: xl
-  to: https://github.com/your-repo
+  to: https://github.com/nuxt-ui-templates/docs
   target: _blank
   ---
-  View on GitHub
+  Use this template
   :::
 
 #default
-<!-- The YouTube video remains a great feature -->
 <iframe src="https://www.youtube-nocookie.com/embed/_eQxomah-nA?si=pDSzchUBDKb2NQu7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="aspect-ratio: 16/9; width: 100%;"></iframe>
 ::
 
-<!-- Ad Placement 1: After the Hero -->
-::google-ad{variant="leaderboard"}
-::
 
-::u-page-section
-#title
-Explore Learning Paths
 
-#description
-Follow our curated paths to build your skills progressively. Each path is designed to take you from foundational concepts to advanced mastery.
-
-::u-page-grid
-  ::u-page-card
-  ---
-  icon: i-lucide-path
-  to: /getting-started/introduction
-  ---
-  #title
-  Beginner's Guide
-
-  #description
-  Start with the basics. Learn about the CRM Analytics ecosystem, core terminology, and how to navigate the platform.
-  ::
-
-  ::u-page-card
-  ---
-  icon: i-lucide-layout-dashboard
-  to: /dashboards/creating-dashboards
-  ---
-  #title
-  Advanced Dashboards
-
-  #description
-  Go beyond simple charts. Master advanced techniques like faceting, dynamic filtering, and building interactive user experiences.
-  ::
-
-  ::u-page-card
-  ---
-  icon: i-lucide-database-zap
-  to: /data/data-integration
-  ---
-  #title
-  Data Integration
-
-  #description
-  Learn how to connect, clean, and transform your data. Explore recipes, dataflows, and best practices for a solid data foundation.
-  ::
-::
-::
-
-<!-- Ad Placement 2: After Courses -->
-::google-ad{variant="rectangle"}
-::
 
 ::u-page-section{class="dark:bg-neutral-950"}
 #title
-Meet the Instructors
+Enhanced with Nuxt Content
 
-#description
-Learn from certified experts with real-world experience in deploying and managing large-scale Salesforce Analytics projects.
+#links
+  :::u-button
+  ---
+  color: neutral
+  size: lg
+  target: _blank
+  to: https://content.nuxt.com/docs/getting-started/installation
+  trailingIcon: i-lucide-arrow-right
+  variant: subtle
+  ---
+  Explore Nuxt Content
+  :::
 
-::u-page-grid{class="grid-cols-2 lg:grid-cols-4"}
-  ::instructor-card{name="Jane Doe" title="Salesforce MVP" avatar="https://i.pravatar.cc/150?u=a042581f4e29026704d" github="janedoe" twitter="janedoe"}
-  ::
+#features
+  :::u-page-feature
+  ---
+  icon: i-simple-icons-markdown
+  ---
+  #title
+  MDC Enhanced Markdown
 
-  ::instructor-card{name="John Smith" title="Lead Analytics Architect" avatar="https://i.pravatar.cc/150?u=a04258114e29026702d" github="johnsmith"}
-  ::
+  #description
+  Write in Markdown while embedding Vue components. Seamlessly integrate interactive elements in your content.
+  :::
 
-  ::instructor-card{name="Emily White" title="Data Scientist" avatar="https://i.pravatar.cc/150?u=a048581f4e29026701d" twitter="emilywhite"}
-  ::
+  :::u-page-feature
+  ---
+  icon: i-lucide-file-text
+  ---
+  #title
+  File-based Routing
 
-  ::instructor-card{name="Michael Brown" title="Senior Consultant" avatar="https://i.pravatar.cc/150?u=a092581f4e29026705d" github="michaelbrown" twitter="michaelbrown"}
-  ::
-::
-::
+  #description
+  Organize content in folders and files. Your documentation structure automatically becomes your navigation.
+  :::
 
-::u-page-section
-#title
-Frequently Asked Questions
+  :::u-page-feature
+  ---
+  icon: i-lucide-code
+  ---
+  #title
+  Syntax Highlighting
 
-#description
-Have questions? We've got answers. If you don't find what you're looking for, feel free to reach out.
+  #description
+  Beautiful code blocks with language detection, line numbers, and copy buttons. Support for 100+ languages.
+  :::
 
-::u-accordion{:items="[{ label: 'Is this content suitable for absolute beginners?', content: 'Yes! Our \"Beginner\'s Guide\" learning path is designed specifically for those new to Salesforce CRM Analytics. We start from the very first principles.' }, { label: 'What are the prerequisites?', content: 'A basic understanding of Salesforce concepts (like objects and fields) is helpful, but not strictly required for the beginner modules. We explain everything as we go.' }, { label: 'Do I get a certificate upon completion?', content: 'Currently, we do not offer official certificates, but our content is structured to prepare you for Salesforce\'s official certification exams.' }]" :default-open="false" size="lg"}
-::
+  :::u-page-feature
+  ---
+  icon: i-lucide-database
+  ---
+  #title
+  Content Database
 
-::
-<!-- Ad Placement 3: Before the final CTA -->
-::google-ad{variant="skyscraper"}
+  #description
+  Query your content with a MongoDB-like API. Filter, sort, and search through your documentation programmatically.
+  :::
+
+  :::u-page-feature
+  ---
+  icon: i-lucide-file-code
+  ---
+  #title
+  Frontmatter Support
+
+  #description
+  Add metadata to your content files. Define SEO tags, navigation properties, and custom fields.
+  :::
+
+  :::u-page-feature
+  ---
+  icon: i-lucide-git-branch
+  ---
+  #title
+  Version Control
+
+  #description
+  Content lives in your repository. Branch, review, and deploy documentation alongside your code.
+  :::
 ::
 
 ::u-page-section{class="dark:bg-gradient-to-b from-neutral-950 to-neutral-900"}
-  ::u-page-c-t-a
+  :::u-page-c-t-a
   ---
   links:
-    - label: Start learning
+    - label: Start building
       to: '/getting-started'
       trailingIcon: i-lucide-arrow-right
     - label: View on GitHub
-      to: 'https://github.com/your-repo'
+      to: 'https://github.com/nuxt-ui-templates/docs'
       target: _blank
       variant: subtle
       icon: i-simple-icons-github
-  title: Ready to become an Analytics expert?
-  description: Join our community and start building powerful dashboards and data models today.
+  title: Ready to build an amazing documentation?
+  description: Join thousands of developers building with Nuxt and Nuxt UI. Get this template and start shipping today.
   class: dark:bg-neutral-950
   ---
+
   :stars-bg
-  ::
+  :::
+::
+
+
+::google-ad{variant="leaderboard"}
+::
+
+::google-ad{variant="rectangle"}
+::
+
+::google-ad{variant="skyscraper"}
+::
+
+::google-ad{variant="square"}
 ::
