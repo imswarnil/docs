@@ -1,6 +1,6 @@
 <!-- components/content/GoogleAd.vue -->
 <script setup lang="ts">
-import { ref, onMounted, nextTick, watch } from 'vue'
+import { ref, onMounted, nextTick, watch, computed } from 'vue'
 import { useRoute } from 'vue-router'
 
 defineOptions({ name: 'GoogleAd' })
@@ -16,14 +16,22 @@ type Variant =
   | 'in-article'
   | 'in-feed'
   | 'multiplex'
-  | 'text' // This will use a display ad unit optimized for text ads
+  | 'text' // New variant to encourage text-based ads
+
+// New prop to control the visual style of the ad wrapper
+type DisplayStyle =
+  | 'standard' // Default with background, border, and padding
+  | 'minimal'  // No background or border, for clean integration
+  | 'full-width' // Stretches to the full container width
 
 const props = withDefaults(defineProps<{
   variant?: Variant
-  /** Optional: Force reload on SPA navigation, automatically handled by watching route path */
+  displayStyle?: DisplayStyle
+  /** Optional: Force reload on SPA navigation */
   refreshKey?: string | number
 }>(), {
   variant: 'horizontal',
+  displayStyle: 'standard',
 })
 
 // Your AdSense Publisher ID
@@ -43,10 +51,26 @@ const hostRef = ref<HTMLDivElement|null>(null)
 const route = useRoute()
 const isDev = process.dev
 
+// --- Logic for Dynamic Styling ---
+const wrapperClasses = computed(() => {
+  const base = 'flex justify-center w-full'
+  if (props.displayStyle === 'full-width') return `${base} my-6 max-w-none`
+  if (props.displayStyle === 'minimal') return `${base} my-4`
+  return `${base} my-6` // Standard
+})
+
+const frameClasses = computed(() => {
+  const base = 'w-full flex justify-center items-center'
+  if (props.displayStyle === 'standard') {
+    return `${base} bg-slate-50 dark:bg-slate-800/50 border border-dashed border-slate-300 dark:border-slate-700 rounded-lg p-2`
+  }
+  return base // Minimal & Full-width have no extra frame styles
+})
+
 /** Load the Google AdSense script once per page load */
 function ensureScript(): Promise<void> {
   return new Promise<void>((resolve) => {
-    if (isDev) return resolve() // Don't load external scripts in dev mode
+    if (isDev) return resolve()
     // @ts-ignore
     if (window.adsbygoogle && Array.isArray(window.adsbygoogle)) return resolve()
     
@@ -58,7 +82,7 @@ function ensureScript(): Promise<void> {
       script.crossOrigin = 'anonymous'
       script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${AD_CLIENT}`
       script.onload = () => resolve()
-      script.onerror = () => resolve() // Don't block the page on error
+      script.onerror = () => resolve()
       document.head.appendChild(script)
     } else {
       resolve()
@@ -77,7 +101,7 @@ function buildInsElement(): HTMLInsElement {
     case 'horizontal':
     case 'leaderboard':
     case 'rectangle':
-    case 'text':
+    case 'text': // Text ads use a standard responsive display unit
       el.setAttribute('data-ad-slot', SLOTS.HORIZONTAL)
       el.setAttribute('data-ad-format', 'auto')
       el.setAttribute('data-full-width-responsive', 'true')
@@ -119,12 +143,12 @@ function buildInsElement(): HTMLInsElement {
 
 /** The main function to render or re-render an ad */
 async function renderAd() {
-  if (isDev) return // Don't run ad logic in development
+  if (isDev) return
   
   const host = hostRef.value
   if (!host) return
   
-  host.innerHTML = '' // Clear previous ad
+  host.innerHTML = ''
   const ins = buildInsElement()
   host.appendChild(ins)
 
@@ -137,35 +161,31 @@ async function renderAd() {
   }
 }
 
-// Load ad on initial mount
+// Initial ad load on component mount
 onMounted(async () => {
   await nextTick()
   await ensureScript()
   await renderAd()
 })
 
-// Refresh ad on every page navigation to ensure a new ad is loaded
-watch(() => route.fullPath, async () => {
+// Re-render ad on route change
+watch(() => [route.fullPath, props.variant, props.refreshKey], async () => {
   await nextTick()
-  // A small delay helps ensure the ad slot is ready after the page transition
   setTimeout(renderAd, 100)
-}, { immediate: false }) // 'immediate: false' prevents it from running on initial load
+})
 </script>
 
 <template>
-  <!-- This outer div provides spacing and centers the ad unit -->
-  <div class="my-6 w-full text-center">
-    <!-- This is the styled frame that "hugs" the ad content -->
-    <div
-      class="inline-block p-2 rounded-lg border border-slate-200/60 dark:border-slate-800/60 bg-slate-50/50 dark:bg-slate-900/20"
-    >
+  <div :class="wrapperClasses">
+    <div :class="frameClasses">
       <!-- Development Mode: Show a helpful placeholder -->
-      <div v-if="isDev" class="px-8 py-4 text-center text-slate-500 dark:text-slate-400">
+      <div v-if="isDev" class="text-center text-slate-500 dark:text-slate-400 p-4">
         <p class="font-bold">Ad Slot</p>
         <p class="text-sm font-mono">{{ variant }}</p>
+        <p v-if="displayStyle !== 'standard'" class="text-xs font-mono mt-1">({{ displayStyle }})</p>
       </div>
       <!-- Production Mode: Mount the real ad -->
-      <div v-else ref="hostRef" class="min-h-[50px] leading-none flex" />
+      <div v-else ref="hostRef" class="w-full min-h-[90px]" />
     </div>
   </div>
 </template>
