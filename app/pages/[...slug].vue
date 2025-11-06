@@ -25,10 +25,10 @@ defineOgImageComponent('Docs', { headline: headline.value })
 </script>
 
 <template>
-  <!-- (1) Top of page: leaderboard -->
-  <ClientOnly>
-<GoogleAd variant="fixed" width="728px" height="90px" />
-</ClientOnly>
+ <!-- Ad placed at the top of the page -->
+    <ClientOnly>
+      <GoogleAd variant="leaderboard" :refresh-key="route.path" />
+    </ClientOnly>
 
   <UPage v-if="page">
     <UPageHeader :title="page.title" :description="page.description" :headline="headline">
@@ -42,9 +42,8 @@ defineOgImageComponent('Docs', { headline: headline.value })
       </template>
     </UPageHeader>
 
-    <!-- (2) Under header: horizontal -->
     <ClientOnly>
-      <GoogleAd variant="horizontal" />
+      <GoogleAd variant="rectangle" :refresh-key="route.path" />
     </ClientOnly>
     <UPageBody>
       <!-- (3) In-article (fluid) before content -->
