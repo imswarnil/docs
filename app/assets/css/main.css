@@ -136,21 +136,6 @@
   }
 }
 
-/* CRM Analytics Academy logo responsiveness */
-.crma-logo .crma-logo__wordmark--abbr { display: none; }
-.crma-logo .crma-logo__wordmark--full { display: inline; }
-
-/* Tweak the breakpoint as you like */
-@media (max-width: 640px) {
-  .crma-logo .crma-logo__wordmark--full { display: none; }
-  .crma-logo .crma-logo__wordmark--abbr { display: inline; }
-}
-
-/* Optional: slightly shrink on very narrow screens */
-@media (max-width: 380px) {
-  .crma-logo { --logo-h: 1.5rem; }
-}
-
 
 /* =============================
    GoogleAd.vue wrapper styling
