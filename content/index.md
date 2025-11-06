@@ -3,6 +3,24 @@ seo:
   title: Nuxt Docs Template
   description: Create stunning, fast and SEO-optimized documentation sites with Nuxt UI.
 ---
+::FeatureCards
+---
+items:
+  - title: Icons
+    description: Nuxt UI integrates with Nuxt Icon to access 200k+ icons.
+    icon: i-lucide-smile
+    to: /docs/getting-started/integrations/icons
+  - title: Fonts
+    description: Nuxt Fonts for plug-and-play font optimization.
+    icon: i-lucide-a-large-small
+    to: /docs/getting-started/integrations/fonts
+  - title: Color Mode
+    description: Switch between light and dark.
+    icon: i-lucide-sun-moon
+    to: /docs/getting-started/integrations/color-mode
+---
+::
+
 
 ::u-page-hero{class="dark:bg-gradient-to-b from-neutral-900 to-neutral-950"}
 ---
