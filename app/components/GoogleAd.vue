@@ -26,7 +26,7 @@ const props = withDefaults(defineProps<{
   refreshKey?: string | number
 }>(), {
   variant: 'leaderboard',
-  adClient: 'ca-pub-XXXXXXXXXXXXXXXX' // ⚠️ REPLACE WITH YOUR ADSENSE CLIENT ID
+  adClient: 'ca-pub-1291242080282540' //
 })
 
 /**
@@ -34,11 +34,11 @@ const props = withDefaults(defineProps<{
  * These are just placeholders.
  */
 const SLOTS = {
-  HORIZONTAL:      '1234567890',
-  VERTICAL:        '1234567890',
-  SQUARE:          '1234567890',
-  IN_ARTICLE:      '1234567890',
-  MULTIPLEX:       '1234567890'
+  HORIZONTAL:      '8939839370',
+  VERTICAL:        '3487917390',
+  SQUARE:          '7663977887',
+  IN_ARTICLE:      '6501428979',
+  MULTIPLEX:       '6808134701'
 } as const
 
 const hostRef = ref<HTMLDivElement|null>(null)
