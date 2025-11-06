@@ -1,7 +1,7 @@
 export default defineAppConfig({
   ui: {
     colors: {
-      primary: 'green',
+      primary: 'blue',
       neutral: 'slate'
     },
     footer: {
@@ -12,7 +12,7 @@ export default defineAppConfig({
     }
   },
   seo: {
-    siteName: 'Nuxt Docs Template'
+    siteName: 'CRM Analytics Academy'
   },
   header: {
     title: '',
@@ -26,13 +26,13 @@ export default defineAppConfig({
     colorMode: true,
     links: [{
       'icon': 'i-simple-icons-github',
-      'to': 'https://github.com/nuxt-ui-templates/docs',
+      'to': 'https://github.com/imswarnil/CRM-Analytics-Academy',
       'target': '_blank',
       'aria-label': 'GitHub'
     }]
   },
   footer: {
-    credits: `Built with Nuxt UI • © ${new Date().getFullYear()}`,
+    credits: `Created By Swarnil • © ${new Date().getFullYear()}`,
     colorMode: false,
     links: [{
       'icon': 'i-simple-icons-discord',
@@ -55,16 +55,16 @@ export default defineAppConfig({
     title: 'Table of Contents',
     bottom: {
       title: 'Community',
-      edit: 'https://github.com/nuxt-ui-templates/docs/edit/main/content',
+      edit: '',
       links: [{
         icon: 'i-lucide-star',
         label: 'Star on GitHub',
-        to: 'https://github.com/nuxt/ui',
+        to: 'https://github.com/imswarnil/CRM-Analytics-Academy',
         target: '_blank'
       }, {
         icon: 'i-lucide-book-open',
-        label: 'Nuxt UI docs',
-        to: 'https://ui.nuxt.com/docs/getting-started/installation/nuxt',
+        label: 'CRM Analytics Official Docs',
+        to: 'https://developer.salesforce.com/developer-centers/crm-analytics',
         target: '_blank'
       }]
     }
