@@ -3,6 +3,7 @@ seo:
   title: Nuxt Docs Template
   description: Create stunning, fast and SEO-optimized documentation sites with Nuxt UI.
 ---
+
 ::u-page-hero{class="dark:bg-gradient-to-b from-neutral-900 to-neutral-950"}
 ---
 orientation: horizontal
@@ -11,10 +12,10 @@ orientation: horizontal
 :hero-background
 
 #title
-Learn Salesforce [CRM Analytics]{.text-primary}.
+Learn Salesforce [CRMAnalytics]{.text-primary}.
 
 #description
-Go from zero to production: org setup & licensing, **Connectors & Sync**, **Recipes/Dataflows**, dataset modeling, **SAQL** fundamentals → advanced, interactive **Dashboard Bindings**, **Row-Level Security (RLS)**, and **Einstein Discovery** — everything you need to ship real analytics in Salesforce.
+Build professional documentation with Nuxt UI's powerful components, enhanced typography, and seamless Nuxt Content integration. The same system trusted by the entire [Nuxt ecosystem](https://nuxt.com).
 
 #links
   :::u-button
@@ -23,30 +24,24 @@ Go from zero to production: org setup & licensing, **Connectors & Sync**, **Reci
   size: xl
   trailing-icon: i-lucide-arrow-right
   ---
-  Start learning
+  Get started
   :::
 
   :::u-button
   ---
-  icon: i-lucide-list-checks
+  icon: i-simple-icons-github
   color: neutral
   variant: outline
   size: xl
-  to: /docs/syllabus
+  to: https://github.com/nuxt-ui-templates/docs
+  target: _blank
   ---
-  View syllabus
+  Use this template
   :::
 
 #default
-<iframe src="https://www.youtube-nocookie.com/embed/_eQxomah-nA?si=pDSzchUBDKb2NQu7"
-  title="CRM Analytics Overview"
-  frameborder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-  referrerpolicy="strict-origin-when-cross-origin"
-  allowfullscreen
-  style="aspect-ratio: 16/9; width: 100%;"></iframe>
+<iframe src="https://www.youtube-nocookie.com/embed/_eQxomah-nA?si=pDSzchUBDKb2NQu7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="aspect-ratio: 16/9; width: 100%;"></iframe>
 ::
-
 
 ::u-page-section{class="dark:bg-neutral-950"}
 #title
