@@ -1,5 +1,7 @@
 <!-- pages/docs/[...slug].vue -->
 <script setup lang="ts">
+// All of your existing script setup logic remains the same.
+// ...
 import type { ContentNavigationItem } from '@nuxt/content'
 import { findPageHeadline } from '@nuxt/content/utils'
 
@@ -24,10 +26,10 @@ defineOgImageComponent('Docs', { headline: headline.value })
 </script>
 
 <template>
-  <div> <!-- Added a root div to contain all elements -->
-    <!-- Ad #1: Full-width banner at the very top -->
+  <div>
+    <!-- Ad #1: A standard horizontal banner before the main page content -->
     <ClientOnly>
-      <GoogleAd variant="horizontal" display-style="full-width" :refresh-key="route.path" />
+      <GoogleAd variant="horizontal" />
     </ClientOnly>
 
     <UPage v-if="page">
@@ -42,44 +44,24 @@ defineOgImageComponent('Docs', { headline: headline.value })
       </UPageHeader>
 
       <UPageBody>
-        <!-- Ad #2: Minimal text ad before main content -->
-        <ClientOnly>
-          <GoogleAd variant="text" display-style="minimal" :refresh-key="route.path" />
-        </ClientOnly>
-
         <ContentRenderer :value="page" />
 
-        <!-- Ad #3: Standard in-article ad between content and surround links -->
-        <ClientOnly>
-          <GoogleAd variant="in-article" display-style="standard" :refresh-key="route.path" />
-        </ClientOnly>
-
         <USeparator v-if="surround?.length" class="my-8" />
-
         <UContentSurround :surround="surround" />
-
-        <!-- Ad #4: Multiplex ad at the bottom of the body -->
+        
+        <!-- Ad #2: Multiplex ad at the very bottom of the page body -->
         <ClientOnly>
-          <GoogleAd variant="multiplex" :refresh-key="route.path" />
+          <GoogleAd variant="multiplex" />
         </ClientOnly>
       </UPageBody>
 
       <!-- Right Sidebar TOC + Ads -->
       <template v-if="page.body?.toc?.links?.length" #right>
         <UContentToc :title="toc?.title" :links="page.body.toc.links">
-          <template v-if="toc?.bottom" #bottom>
-            <div class="hidden lg:block space-y-6" :class="{ '!mt-6': page.body?.toc?.links?.length }">
-              <USeparator v-if="page.body.toc.links.length" type="dashed" />
-            </div>
-
-            <!-- Ad #5: Vertical ad for the sidebar -->
+          <template #bottom>
+            <!-- Ad #3: Vertical ad, perfect for a sticky sidebar -->
             <ClientOnly>
-              <GoogleAd variant="vertical" :refresh-key="route.path" />
-            </ClientOnly>
-
-            <!-- Ad #6: Square ad, also great for sidebars -->
-            <ClientOnly>
-              <GoogleAd variant="square" :refresh-key="route.path" />
+              <GoogleAd variant="vertical" />
             </ClientOnly>
           </template>
         </UContentToc>
