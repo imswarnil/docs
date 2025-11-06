@@ -108,9 +108,9 @@ function attrsForVariant() {
 /* -------- Inline style for <ins> (only fixed sizes need strict w/h) -------- */
 function insStyleForVariant() {
   switch (props.variant) {
-    case 'large-leaderboard': return 'display:inline-block;width:970px;height:90px'
-    case 'leaderboard':       return 'display:inline-block;width:728px;height:90px'
-    case 'small-leaderboard': return 'display:inline-block;width:320px;height:50px'
+    case 'large-leaderboard': return 'display:inline-block;width:100%;height:90px'
+    case 'leaderboard':       return 'display:inline-block;width:100%;height:90px'
+    case 'small-leaderboard': return 'display:inline-block;width:100%;height:50px'
     case 'wide-skyscraper':   return 'display:inline-block;width:300px;height:600px'
     case 'skyscraper':        return 'display:inline-block;width:160px;height:600px'
     case 'rectangle':         return 'display:inline-block;width:300px;height:250px'
