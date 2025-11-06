@@ -11,12 +11,17 @@
       <rect x="140" y="50" width="44" height="150" rx="10" fill="var(--ui-primary, #009ED9)" opacity="0.85"></rect>
     </g>
 
-    <!-- Wordmark: fits into a fixed lane using textLength (no overflow) -->
-    <!-- Lane starts after bars: x=260, ends ~ x=1360 (width ~1100) -->
-    <text x="260" y="170" fill="currentColor" font-family="Outfit, Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial" font-size="140" font-weight="800"  textLength="1300" lengthAdjust="spacingAndGlyphs" dominant-baseline="alphabetic" style="
-    letter-spacing: -4.9px;
-">
+    <!-- Wordmark: Desktop Version (CRM Analytics Academy) -->
+    <!-- Hidden below md breakpoint, block for md and above -->
+    <text x="260" y="170" fill="currentColor" font-family="Outfit, Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial" font-size="140" font-weight="800"  textLength="1300" lengthAdjust="spacingAndGlyphs" dominant-baseline="alphabetic" style="letter-spacing: -4.9px;" class="hidden md:block">
       CRM Analytics Academy
+    </text>
+
+    <!-- Wordmark: Mobile Version (CRMA) -->
+    <!-- Visible below md breakpoint, hidden for md and above -->
+    <!-- TextLength reduced significantly (e.g., 400) to fit CRMA -->
+    <text x="260" y="170" fill="currentColor" font-family="Outfit, Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial" font-size="140" font-weight="800" textLength="400" lengthAdjust="spacingAndGlyphs" dominant-baseline="alphabetic" style="letter-spacing: -4.9px;" class="block md:hidden">
+      CRMA
     </text>
   </svg>
 </template>
