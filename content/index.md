@@ -1,9 +1,8 @@
 ---
 seo:
-  title: CRM Analytics Training (Salesforce)
-  description: Learn Salesforce CRM Analytics (Tableau CRM / Einstein Analytics) end-to-end — data ingestion, recipes/dataflows, SAQL, dashboard bindings, row-level security, and Einstein Discovery.
+  title: Nuxt Docs Template
+  description: Create stunning, fast and SEO-optimized documentation sites with Nuxt UI.
 ---
-
 ::u-page-hero{class="dark:bg-gradient-to-b from-neutral-900 to-neutral-950"}
 ---
 orientation: horizontal
@@ -12,10 +11,10 @@ orientation: horizontal
 :hero-background
 
 #title
-Learn Salesforce [CRMAnalytics]{.text-primary}.
+Learn Salesforce [CRM Analytics]{.text-primary}.
 
 #description
-Hands-on training to go from zero to production: org setup, connectors, **Recipes & Dataflows**, dataset design, **SAQL**, interactive dashboards with **Bindings**, **Row-level Security**, and **Einstein Discovery**. Built with Nuxt UI, tuned for real Salesforce projects.
+Go from zero to production: org setup & licensing, **Connectors & Sync**, **Recipes/Dataflows**, dataset modeling, **SAQL** fundamentals → advanced, interactive **Dashboard Bindings**, **Row-Level Security (RLS)**, and **Einstein Discovery** — everything you need to ship real analytics in Salesforce.
 
 #links
   :::u-button
@@ -24,19 +23,18 @@ Hands-on training to go from zero to production: org setup, connectors, **Recipe
   size: xl
   trailing-icon: i-lucide-arrow-right
   ---
-  Start the course
+  Start learning
   :::
 
   :::u-button
   ---
-  icon: i-simple-icons-github
+  icon: i-lucide-list-checks
   color: neutral
   variant: outline
   size: xl
-  to: https://github.com/nuxt-ui-templates/docs
-  target: _blank
+  to: /docs/syllabus
   ---
-  View repository
+  View syllabus
   :::
 
 #default
@@ -49,9 +47,10 @@ Hands-on training to go from zero to production: org setup, connectors, **Recipe
   style="aspect-ratio: 16/9; width: 100%;"></iframe>
 ::
 
+
 ::u-page-section{class="dark:bg-neutral-950"}
 #title
-What you’ll master
+Enhanced with Nuxt Content
 
 #links
   :::u-button
@@ -63,30 +62,30 @@ What you’ll master
   trailingIcon: i-lucide-arrow-right
   variant: subtle
   ---
-  Nuxt Content Docs
+  Explore Nuxt Content
   :::
 
 #features
   :::u-page-feature
   ---
-  icon: i-lucide-plug
+  icon: i-simple-icons-markdown
   ---
   #title
-  Connectors & Sync
+  MDC Enhanced Markdown
 
   #description
-  Bring Salesforce and external data (CSV, Snowflake, BigQuery, etc.) with scheduled syncs and monitored jobs.
+  Write in Markdown while embedding Vue components. Seamlessly integrate interactive elements in your content.
   :::
 
   :::u-page-feature
   ---
-  icon: i-lucide-sparkles
+  icon: i-lucide-file-text
   ---
   #title
-  Recipes & Dataflows
+  File-based Routing
 
   #description
-  Clean, join, transform. Learn when to use Recipes vs Dataflows, incremental loads, and schema design.
+  Organize content in folders and files. Your documentation structure automatically becomes your navigation.
   :::
 
   :::u-page-feature
@@ -94,43 +93,43 @@ What you’ll master
   icon: i-lucide-code
   ---
   #title
-  SAQL Deep-Dive
+  Syntax Highlighting
 
   #description
-  Go beyond the UI with powerful aggregations, filters, order, windowing patterns, and performance tricks.
+  Beautiful code blocks with language detection, line numbers, and copy buttons. Support for 100+ languages.
   :::
 
   :::u-page-feature
   ---
-  icon: i-lucide-layout-dashboard
+  icon: i-lucide-database
   ---
   #title
-  Dashboards & Bindings
+  Content Database
 
   #description
-  Build interactive, responsive dashboards; wire widgets with queries, selectors, and advanced bindings.
+  Query your content with a MongoDB-like API. Filter, sort, and search through your documentation programmatically.
   :::
 
   :::u-page-feature
   ---
-  icon: i-lucide-shield-check
+  icon: i-lucide-file-code
   ---
   #title
-  Security & Governance
+  Frontmatter Support
 
   #description
-  Row-Level Security, predicates, sharing, and monitoring so the right people see the right numbers.
+  Add metadata to your content files. Define SEO tags, navigation properties, and custom fields.
   :::
 
   :::u-page-feature
   ---
-  icon: i-lucide-brain-circuit
+  icon: i-lucide-git-branch
   ---
   #title
-  Einstein Discovery
+  Version Control
 
   #description
-  Create actionable predictions and insights directly inside your dashboards and Salesforce records.
+  Content lives in your repository. Branch, review, and deploy documentation alongside your code.
   :::
 ::
 
@@ -138,19 +137,16 @@ What you’ll master
   :::u-page-c-t-a
   ---
   links:
-    - label: Start Building
+    - label: Start building
       to: '/getting-started'
       trailingIcon: i-lucide-arrow-right
-    - label: Syllabus
-      to: '/docs/syllabus'
+    - label: View on GitHub
+      to: 'https://github.com/nuxt-ui-templates/docs'
+      target: _blank
       variant: subtle
-      icon: i-lucide-list-checks
-    - label: Sample Dashboards
-      to: '/docs/dashboards/examples'
-      variant: subtle
-      icon: i-lucide-layout-dashboard
-  title: Ready to ship real CRM Analytics dashboards?
-  description: Follow the guided path, copy production-ready snippets, and learn patterns you’ll reuse on every project.
+      icon: i-simple-icons-github
+  title: Ready to build an amazing documentation?
+  description: Join thousands of developers building with Nuxt and Nuxt UI. Get this template and start shipping today.
   class: dark:bg-neutral-950
   ---
 
