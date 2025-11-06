@@ -1,4 +1,3 @@
-<!-- components/GoogleAd.vue -->
 <script setup lang="ts">
 import { ref, onMounted, nextTick, watch } from 'vue'
 import { useRoute } from 'vue-router'
@@ -6,18 +5,15 @@ import { useRoute } from 'vue-router'
 defineOptions({ name: 'GoogleAd' })
 
 type Variant =
-  | 'leaderboard'        // 728×90
+  | 'leaderboard'        // 728×90 (responsive-friendly)
   | 'large-leaderboard'  // 970×90
   | 'small-leaderboard'  // 320×50
-  | 'square'             // Responsive square, clamped at 250px
-  | 'square-fixed'       // Strict 250×250
+  | 'square'             // 250×250 (clamped)
   | 'wide-skyscraper'    // 300×600
   | 'skyscraper'         // 160×600
   | 'rectangle'          // 300×250 (MREC)
-  | 'horizontal'         // Responsive auto
-  | 'vertical'           // Responsive auto
-  | 'in-article'         // Responsive in-article (fluid)
-  | 'multiplex'          // Responsive matched content (autorelaxed)
+  | 'horizontal'         // responsive auto (fallback)
+  | 'vertical'           // responsive auto (fallback)
 
 const props = withDefaults(defineProps<{
   variant?: Variant
@@ -26,19 +22,17 @@ const props = withDefaults(defineProps<{
   refreshKey?: string | number
 }>(), {
   variant: 'leaderboard',
-  adClient: 'ca-pub-1291242080282540' // Replace with your AdSense Client ID
+  adClient: 'ca-pub-1291242080282540'
 })
 
-/**
- * Your AdSense Slot IDs.
- * Replace these with your actual slot IDs from your AdSense account.
- */
+/** Default slots you already shared. No asking, just ship. */
 const SLOTS = {
-  HORIZONTAL:      '8939839370',
-  VERTICAL:        '3487917390',
-  SQUARE:          '7663977887',
-  IN_ARTICLE:      '6501428979',
-  MULTIPLEX:       '6808134701'
+  HORIZONTAL:      '8939839370', // responsive horizontal
+  VERTICAL:        '3487917390', // responsive vertical
+  SQUARE:          '7663977887', // responsive square (we clamp to 250)
+  IN_ARTICLE:      '6501428979', // not used here
+  IN_FEED:         '9130894804', // not used here
+  MULTIPLEX:       '6808134701'  // not used here
 } as const
 
 const hostRef = ref<HTMLDivElement|null>(null)
@@ -53,12 +47,12 @@ function ensureScript(): Promise<void> {
     if (!s) {
       s = document.createElement('script')
       s.id = 'adsbygoogle-js'
-      s.async = false // Using `async=false` to ensure it loads before ads are pushed
+      s.async = false
       s.crossOrigin = 'anonymous'
       s.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${props.adClient}`
       document.head.appendChild(s)
       s.addEventListener('load', () => resolve())
-      s.addEventListener('error', () => resolve()) // Resolve on error to not block page
+      s.addEventListener('error', () => resolve())
     } else {
       resolve()
     }
@@ -69,58 +63,56 @@ function ensureScript(): Promise<void> {
 function buildIns(): HTMLInsElement {
   const el = document.createElement('ins')
   el.className = 'adsbygoogle'
+
+  // Common
   el.setAttribute('data-ad-client', props.adClient)
 
+  // Variant map
   switch (props.variant) {
     // Fixed sizes (explicit width/height)
-    case 'large-leaderboard':
+    case 'large-leaderboard': // 970×90
       el.style.cssText = 'display:inline-block;width:970px;height:90px'
       el.setAttribute('data-ad-slot', SLOTS.HORIZONTAL)
       break
-    case 'leaderboard':
+
+    case 'leaderboard': // 728×90 (use fixed box for crispness)
       el.style.cssText = 'display:inline-block;width:728px;height:90px'
       el.setAttribute('data-ad-slot', SLOTS.HORIZONTAL)
       break
-    case 'small-leaderboard':
+
+    case 'small-leaderboard': // 320×50
       el.style.cssText = 'display:inline-block;width:320px;height:50px'
       el.setAttribute('data-ad-slot', SLOTS.HORIZONTAL)
       break
-    case 'wide-skyscraper':
+
+    case 'wide-skyscraper': // 300×600
       el.style.cssText = 'display:inline-block;width:300px;height:600px'
       el.setAttribute('data-ad-slot', SLOTS.VERTICAL)
       break
-    case 'skyscraper':
+
+    case 'skyscraper': // 160×600
       el.style.cssText = 'display:inline-block;width:160px;height:600px'
       el.setAttribute('data-ad-slot', SLOTS.VERTICAL)
       break
-    case 'rectangle':
+
+    case 'rectangle': // 300×250 (MREC)
       el.style.cssText = 'display:inline-block;width:300px;height:250px'
       el.setAttribute('data-ad-slot', SLOTS.HORIZONTAL)
       break
-    case 'square': // Responsive square, clamped by CSS
-    case 'square-fixed': // Strict 250x250
+
+    case 'square': // clamp to 250×250 (uses square slot)
       el.style.cssText = 'display:inline-block;width:250px;height:250px'
       el.setAttribute('data-ad-slot', SLOTS.SQUARE)
       break
 
-    // Fluid / Responsive formats
-    case 'in-article':
-      el.style.cssText = 'display:block; text-align:center;'
-      el.setAttribute('data-ad-layout', 'in-article')
-      el.setAttribute('data-ad-format', 'fluid')
-      el.setAttribute('data-ad-slot', SLOTS.IN_ARTICLE)
-      break
-    case 'multiplex':
-      el.style.cssText = 'display:block;'
-      el.setAttribute('data-ad-format', 'autorelaxed')
-      el.setAttribute('data-ad-slot', SLOTS.MULTIPLEX)
-      break
+    // Responsive fallbacks (auto)
     case 'horizontal':
       el.style.cssText = 'display:block'
       el.setAttribute('data-ad-slot', SLOTS.HORIZONTAL)
       el.setAttribute('data-ad-format', 'auto')
       el.setAttribute('data-full-width-responsive', 'true')
       break
+
     case 'vertical':
       el.style.cssText = 'display:block'
       el.setAttribute('data-ad-slot', SLOTS.VERTICAL)
@@ -135,19 +127,14 @@ function buildIns(): HTMLInsElement {
 async function render() {
   const host = hostRef.value
   if (!host) return
-  host.innerHTML = '' // Clear previous ad
+  host.innerHTML = ''
 
   const ins = buildIns()
   host.appendChild(ins)
 
-  try {
-    // @ts-ignore
-    const q = (window.adsbygoogle = window.adsbygoogle || [])
-    q.push({})
-  }
-  catch (e) {
-    console.error('AdSense push error:', e)
-  }
+  // @ts-ignore
+  const q = (window.adsbygoogle = window.adsbygoogle || [])
+  try { q.push({}) } catch {}
 }
 
 onMounted(async () => {
@@ -163,6 +150,7 @@ watch(() => [route.fullPath, props.variant, props.refreshKey], async () => {
 </script>
 
 <template>
+  <!-- Wrapper only adds the dashed border & keeps ad centered -->
   <div class="adunit" :data-variant="variant">
     <div class="adunit__frame">
       <div ref="hostRef" class="adunit__mount" />

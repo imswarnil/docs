@@ -137,89 +137,102 @@
 }
 
 
-/* assets/css/ads.css (or similar global stylesheet) */
-.adunit {
-  display: flex;
-  justify-content: center;
-  margin: 1.5rem 0; /* Add some vertical space around ads */
+/* =============================
+   GoogleAd.vue wrapper styling
+   ============================= */
+.adbox {
   width: 100%;
+  max-width: var(--ad-max-w, 100%);
+  /* Important: no max-height by default; let ad decide height */
+  max-height: var(--ad-max-h, none);
+  margin: 1rem 0;
+  box-sizing: border-box;
 }
 
-.adunit__frame {
-  /* Using your theme variables for consistency */
-  background: var(--ui-bg-muted);
-  border: 1px dashed var(--ui-border-accented);
+.adbox__frame {
+  border: 1px dashed var(--ui-border, rgba(0,0,0,.12));
   border-radius: 12px;
-  overflow: hidden;
+  background: var(--ui-elevated, #fff);
   padding: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-html.dark .adunit__frame {
-  background: var(--ui-bg-elevated);
-  border-color: var(--ui-border-muted);
-}
-
-.adunit__mount {
-  line-height: 0; /* Prevents extra space from inline-block elements */
-}
-
-/* === Fixed Size Ad Units === */
-.adunit[data-variant=large-leaderboard] .adunit__frame { width: 970px; }
-.adunit[data-variant=leaderboard] .adunit__frame      { width: 728px; }
-.adunit[data-variant=small-leaderboard] .adunit__frame{ width: 320px; }
-.adunit[data-variant=wide-skyscraper] .adunit__frame  { width: 300px; }
-.adunit[data-variant=skyscraper] .adunit__frame      { width: 160px; }
-.adunit[data-variant=rectangle] .adunit__frame       { width: 300px; }
-.adunit[data-variant=square] .adunit__frame,
-.adunit[data-variant=square-fixed] .adunit__frame {
-  width: 250px;
-}
-
-/* === Responsive/Fluid Ad Units === */
-.adunit[data-variant=horizontal] .adunit__frame,
-.adunit[data-variant=vertical] .adunit__frame,
-.adunit[data-variant=in-article] .adunit__frame,
-.adunit[data-variant=multiplex] .adunit__frame {
-  max-width: 100%;
+  /* Let the frame expand if Google serves a taller unit */
+  overflow: visible;
   width: 100%;
+  min-height: var(--ad-min-h, 0px);
+  box-sizing: border-box;
 }
 
-/* === Media Queries for Responsiveness === */
-
-/* On tablets and smaller devices, clamp widths to be friendly. */
-@media (max-width: 1024px) {
-  .adunit[data-variant=large-leaderboard] .adunit__frame {
-    width: min(970px, 100%);
-  }
+html.dark .adbox__frame {
+  border-color: var(--ui-border, rgba(255,255,255,.18));
+  background: var(--ui-elevated, #0b0f19);
 }
 
-@media (max-width: 768px) {
-  .adunit[data-variant=large-leaderboard] .adunit__frame,
-  .adunit[data-variant=leaderboard] .adunit__frame {
-    width: min(728px, 100%);
-  }
-  .adunit[data-variant=wide-skyscraper] .adunit__frame {
-    width: min(300px, 92vw);
-  }
-  .adunit[data-variant=skyscraper] .adunit__frame {
-    width: min(160px, 70vw);
-  }
-  .adunit[data-variant=rectangle] .adunit__frame {
-    width: min(300px, 92vw);
-  }
-  .adunit[data-variant=square] .adunit__frame,
-  .adunit[data-variant=square-fixed] .adunit__frame {
-    width: min(250px, 70vw);
-  }
+/* The mount holds <ins>. Let it flow; no clipping. */
+.adbox__mount {
+  width: 100%;
+  height: auto;
+  overflow: visible;
 }
 
-/* On small phones, reduce padding for a tighter look. */
-@media (max-width: 420px) {
-  .adunit__frame {
-    border-radius: 10px;
-    padding: 6px;
+/* ---- Variant guidance (width-first) ---- */
+
+/* Leaderboard / horizontal: constrain width only; height grows as needed */
+.adbox--horizontal .adbox__frame,
+.adbox--leaderboard .adbox__frame {
+  max-width: 728px;
+  margin-inline: auto;
+  /* Reserve some space to reduce CLS, but allow growth */
+  min-height: 90px;
+}
+
+/* Vertical / skyscraper: limit width so Google won't choose a wide box */
+.adbox--vertical .adbox__frame,
+.adbox--skyscraper .adbox__frame {
+  max-width: 320px;       /* typical 300/320 widths */
+  margin-inline: auto;
+  min-height: 280px;      /* first paint reserve; grows if needed */
+}
+
+/* ✅ Responsive square: width clamp prevents a skyscraper */
+.adbox--square .adbox__frame {
+  max-width: 250px;
+  margin-inline: auto;
+  padding: 0;
+}
+
+/* ✅ Strict 250x250 */
+.adbox--square-fixed .adbox__frame {
+  max-width: 250px;
+  margin-inline: auto;
+  padding: 0;
+}
+
+/* Fluid families can span the container width */
+.adbox--in-article .adbox__frame,
+.adbox--in-feed .adbox__frame,
+.adbox--multiplex .adbox__frame {
+  max-width: 100%;
+}
+
+/* True fixed: let the inline height through, no padding */
+.adbox--fixed .adbox__frame {
+  padding: 0;
+  margin-inline: auto;
+  border: 1px dashed var(--ui-border, rgba(0,0,0,.12));
+}
+
+@media (max-width: 640px) {
+  .adbox { margin: .75rem 0; }
+  .adbox__frame { padding: 6px; }
+
+  .adbox--leaderboard .adbox__frame,
+  .adbox--horizontal .adbox__frame {
+    max-width: 100%;
+    min-height: 70px;
+  }
+
+  /* Let square shrink gracefully on tiny screens */
+  .adbox--square .adbox__frame,
+  .adbox--square-fixed .adbox__frame {
+    max-width: 220px;
   }
 }
