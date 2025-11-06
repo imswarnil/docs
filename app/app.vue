@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Analytics } from '@vercel/analytics/nuxt'
 const { seo } = useAppConfig()
 
 const { data: navigation } = await useAsyncData('navigation', () => queryCollectionNavigation('docs'))
@@ -28,6 +29,7 @@ provide('navigation', navigation)
 </script>
 
 <template>
+  <Analytics/>
   <UApp>
     <NuxtLoadingIndicator />
     <AppHeader />
