@@ -1,27 +1,55 @@
+<!-- pages/index.vue -->
 <script setup lang="ts">
-const { data: page } = await useAsyncData('index', () => queryCollection('landing').path('/').first())
+import { useSiteConfig } from '#imports'
+
+const { data: page } = await useAsyncData('index', () => queryContent('/').findOne())
 if (!page.value) {
   throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
 }
 
+const siteConfig = useSiteConfig()
+
+// --- SEO and Meta Tags ---
 const title = page.value.seo?.title || page.value.title
 const description = page.value.seo?.description || page.value.description
 
 useSeoMeta({
-  titleTemplate: '',
+  titleTemplate: '', // Use the title directly for the homepage
   title,
-  ogTitle: title,
   description,
+  ogTitle: title,
   ogDescription: description,
-  ogImage: 'https://ui.nuxt.com/assets/templates/nuxt/docs-light.png',
-  twitterImage: 'https://ui.nuxt.com/assets/templates/nuxt/docs-light.png'
+  ogImage: `${siteConfig.url}/og-image-home.png`, // A specific OG image for home
+  twitterCard: 'summary_large_image',
+})
+
+// --- Homepage-Specific JSON-LD ---
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        'url': siteConfig.url,
+        'name': title,
+        'description': description,
+        'potentialAction': {
+          '@type': 'SearchAction',
+          'target': {
+            '@type': 'EntryPoint',
+            'urlTemplate': `${siteConfig.url}/search?q={search_term_string}`
+          },
+          'query-input': 'required name=search_term_string'
+        }
+      })
+    }
+  ]
 })
 </script>
 
 <template>
-  <ContentRenderer
-    v-if="page"
-    :value="page"
-    :prose="false"
-  />
+  <div v-if="page">
+    <ContentRenderer :value="page" />
+  </div>
 </template>
