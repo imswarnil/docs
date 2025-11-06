@@ -44,7 +44,8 @@ Build professional documentation with Nuxt UI's powerful components, enhanced ty
 ::
 
 
-
+::google-ad{variant="in-article"}
+::
 
 ::u-page-section{class="dark:bg-neutral-950"}
 #title
