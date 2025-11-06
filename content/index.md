@@ -12,7 +12,8 @@ orientation: horizontal
 :hero-background
 
 #title
-Learn Salesforce [CRM Analytics]{.text-primary}.
+Learn Salesforce [CRM Analytics]{.text-primary}. :icon{name="i-simple-icons-nuxtdotjs"}
+
 
 #description
 Build professional documentation with Nuxt UI's powerful components, enhanced typography, and seamless Nuxt Content integration. The same system trusted by the entire [Nuxt ecosystem](https://nuxt.com).
