@@ -29,7 +29,7 @@ provide('navigation', navigation)
 </script>
 
 <template>
-  <Analytics/>
+<Analytics/>
   <UApp>
     <NuxtLoadingIndicator />
     <AppHeader />

@@ -151,3 +151,16 @@ Enhanced with Nuxt Content
   :stars-bg
   :::
 ::
+
+
+::google-ad{variant="leaderboard"}
+::
+
+::google-ad{variant="rectangle"}
+::
+
+::google-ad{variant="skyscraper"}
+::
+
+::google-ad{variant="square"}
+::
