@@ -3,7 +3,6 @@ seo:
   title: Nuxt Docs Template
   description: Create stunning, fast and SEO-optimized documentation sites with Nuxt UI.
 ---
-
 ::u-page-hero{class="dark:bg-gradient-to-b from-neutral-900 to-neutral-950"}
 ---
 orientation: vertical
@@ -15,7 +14,7 @@ orientation: vertical
 Learn Salesforce [CRMAnalytics]{.text-primary}.
 
 #description
-Build professional documentation with Nuxt UI's powerful components, enhanced typography, and seamless Nuxt Content integration. The same system trusted by the entire [Nuxt ecosystem](https://nuxt.com).
+Master real CRM Analytics on Salesforce. Start with org setup, licenses, and permissions. Build clean datasets with connectors, sync, recipes, and dataflows. Query with SAQL, design fast dashboards, add bindings and interactions, secure with RLS, and ship to production with confidence.
 
 #links
   :::u-button
@@ -24,7 +23,7 @@ Build professional documentation with Nuxt UI's powerful components, enhanced ty
   size: xl
   trailing-icon: i-lucide-arrow-right
   ---
-  Get started
+  Start learning
   :::
 
   :::u-button
@@ -36,12 +35,13 @@ Build professional documentation with Nuxt UI's powerful components, enhanced ty
   to: https://github.com/nuxt-ui-templates/docs
   target: _blank
   ---
-  Use this template
+  View on GitHub
   :::
 
 #default
-<iframe src="https://www.youtube-nocookie.com/embed/_eQxomah-nA?si=pDSzchUBDKb2NQu7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="aspect-ratio: 16/9; width: 100%;"></iframe>
+<iframe src="https://www.youtube-nocookie.com/embed/_eQxomah-nA?si=pDSzchUBDKb2NQu7" title="CRM Analytics overview" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="aspect-ratio: 16/9; width: 100%;"></iframe>
 ::
+
 
 ::u-page-section{class="dark:bg-neutral-950"}
 #title
