@@ -25,6 +25,13 @@ useSeoMeta({
   twitterCard: 'summary_large_image'
 })
 
+// just pass a jsonld object for static jsonld
+useJsonld({
+  '@context': 'https://schema.org',
+  '@type': 'Thing',
+  name: 'static json',
+});
+
 provide('navigation', navigation)
 </script>
 
