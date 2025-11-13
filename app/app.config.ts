@@ -6,17 +6,17 @@ export default defineAppConfig({
   },
   seo: {
     siteName: 'CRM Analytics Academy',
-    siteUrl: 'https://crmanalytics.imswarnil.com',   // ← set your canonical base
+    siteUrl: 'https://crmanalytics.imswarnil.com',   
     defaultLocale: 'en'
   },
   org: {
     type: 'EducationalOrganization',
     name: 'CRM Analytics Academy',
     legalName: 'CRM Analytics Academy',
-    logo: '/logo.png',                                // public/logo.png
+    logo: '/logo.png',                               
     sameAs: [
       'https://github.com/imswarnil/CRM-Analytics-Academy'
-      // add LinkedIn/X/YouTube etc.
+      
     ],
     areaServed: 'Worldwide'
   },
